@@ -1,0 +1,101 @@
+package es.taw.gestionbanco.entity;
+
+import jakarta.persistence.*;
+
+import java.util.Objects;
+
+@Entity
+@Table(name = "cambiodivisa", schema = "gestion_banco", catalog = "")
+public class CambiodivisaEntity {
+    @Basic
+    @Column(name = "monedaVenta", nullable = false, length = 255)
+    private String monedaVenta;
+    @Basic
+    @Column(name = "monedaCompra", nullable = false, length = 255)
+    private String monedaCompra;
+    @Basic
+    @Column(name = "tipoDeCambio", nullable = false, length = 255)
+    private String tipoDeCambio;
+    @Basic
+    @Column(name = "cantidadCompra", nullable = false)
+    private int cantidadCompra;
+    @Basic
+    @Column(name = "cantidadVenta", nullable = false)
+    private int cantidadVenta;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "idTransaccion", nullable = false)
+    private int idTransaccion;
+    @OneToOne
+    @JoinColumn(name = "idTransaccion", referencedColumnName = "id", nullable = false)
+    private TransaccionEntity transaccionByIdTransaccion;
+
+    public String getMonedaVenta() {
+        return monedaVenta;
+    }
+
+    public void setMonedaVenta(String monedaVenta) {
+        this.monedaVenta = monedaVenta;
+    }
+
+    public String getMonedaCompra() {
+        return monedaCompra;
+    }
+
+    public void setMonedaCompra(String monedaCompra) {
+        this.monedaCompra = monedaCompra;
+    }
+
+    public String getTipoDeCambio() {
+        return tipoDeCambio;
+    }
+
+    public void setTipoDeCambio(String tipoDeCambio) {
+        this.tipoDeCambio = tipoDeCambio;
+    }
+
+    public int getCantidadCompra() {
+        return cantidadCompra;
+    }
+
+    public void setCantidadCompra(int cantidadCompra) {
+        this.cantidadCompra = cantidadCompra;
+    }
+
+    public int getCantidadVenta() {
+        return cantidadVenta;
+    }
+
+    public void setCantidadVenta(int cantidadVenta) {
+        this.cantidadVenta = cantidadVenta;
+    }
+
+    public int getIdTransaccion() {
+        return idTransaccion;
+    }
+
+    public void setIdTransaccion(int idTransaccion) {
+        this.idTransaccion = idTransaccion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CambiodivisaEntity that = (CambiodivisaEntity) o;
+        return cantidadCompra == that.cantidadCompra && cantidadVenta == that.cantidadVenta && idTransaccion == that.idTransaccion && Objects.equals(monedaVenta, that.monedaVenta) && Objects.equals(monedaCompra, that.monedaCompra) && Objects.equals(tipoDeCambio, that.tipoDeCambio);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(monedaVenta, monedaCompra, tipoDeCambio, cantidadCompra, cantidadVenta, idTransaccion);
+    }
+
+    public TransaccionEntity getTransaccionByIdTransaccion() {
+        return transaccionByIdTransaccion;
+    }
+
+    public void setTransaccionByIdTransaccion(TransaccionEntity transaccionByIdTransaccion) {
+        this.transaccionByIdTransaccion = transaccionByIdTransaccion;
+    }
+}
