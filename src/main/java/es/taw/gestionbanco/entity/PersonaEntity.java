@@ -11,7 +11,7 @@ public class PersonaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Basic
     @Column(name = "dni", nullable = false, length = 255)
     private String dni;
@@ -37,11 +37,11 @@ public class PersonaEntity {
     @OneToOne(mappedBy = "personaById")
     private SocioEntity socioById;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -98,7 +98,7 @@ public class PersonaEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonaEntity that = (PersonaEntity) o;
-        return id == that.id && Objects.equals(dni, that.dni) && Objects.equals(nombre, that.nombre) && Objects.equals(segundoNombre, that.segundoNombre) && Objects.equals(apellido, that.apellido) && Objects.equals(segundoApellido, that.segundoApellido) && Objects.equals(fechaNacimiento, that.fechaNacimiento);
+        return Objects.equals(id, that.id) && Objects.equals(dni, that.dni) && Objects.equals(nombre, that.nombre) && Objects.equals(segundoNombre, that.segundoNombre) && Objects.equals(apellido, that.apellido) && Objects.equals(segundoApellido, that.segundoApellido) && Objects.equals(fechaNacimiento, that.fechaNacimiento);
     }
 
     @Override

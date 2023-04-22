@@ -18,14 +18,14 @@ public class CambiodivisaEntity {
     private String tipoDeCambio;
     @Basic
     @Column(name = "cantidadCompra", nullable = false)
-    private int cantidadCompra;
+    private Integer cantidadCompra;
     @Basic
     @Column(name = "cantidadVenta", nullable = false)
-    private int cantidadVenta;
+    private Integer cantidadVenta;
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idTransaccion", nullable = false)
-    private int idTransaccion;
+    private Integer idTransaccion;
     @OneToOne
     @JoinColumn(name = "idTransaccion", referencedColumnName = "id", nullable = false)
     private TransaccionEntity transaccionByIdTransaccion;
@@ -54,27 +54,27 @@ public class CambiodivisaEntity {
         this.tipoDeCambio = tipoDeCambio;
     }
 
-    public int getCantidadCompra() {
+    public Integer getCantidadCompra() {
         return cantidadCompra;
     }
 
-    public void setCantidadCompra(int cantidadCompra) {
+    public void setCantidadCompra(Integer cantidadCompra) {
         this.cantidadCompra = cantidadCompra;
     }
 
-    public int getCantidadVenta() {
+    public Integer getCantidadVenta() {
         return cantidadVenta;
     }
 
-    public void setCantidadVenta(int cantidadVenta) {
+    public void setCantidadVenta(Integer cantidadVenta) {
         this.cantidadVenta = cantidadVenta;
     }
 
-    public int getIdTransaccion() {
+    public Integer getIdTransaccion() {
         return idTransaccion;
     }
 
-    public void setIdTransaccion(int idTransaccion) {
+    public void setIdTransaccion(Integer idTransaccion) {
         this.idTransaccion = idTransaccion;
     }
 
@@ -83,7 +83,7 @@ public class CambiodivisaEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CambiodivisaEntity that = (CambiodivisaEntity) o;
-        return cantidadCompra == that.cantidadCompra && cantidadVenta == that.cantidadVenta && idTransaccion == that.idTransaccion && Objects.equals(monedaVenta, that.monedaVenta) && Objects.equals(monedaCompra, that.monedaCompra) && Objects.equals(tipoDeCambio, that.tipoDeCambio);
+        return Objects.equals(monedaVenta, that.monedaVenta) && Objects.equals(monedaCompra, that.monedaCompra) && Objects.equals(tipoDeCambio, that.tipoDeCambio) && Objects.equals(cantidadCompra, that.cantidadCompra) && Objects.equals(cantidadVenta, that.cantidadVenta) && Objects.equals(idTransaccion, that.idTransaccion);
     }
 
     @Override

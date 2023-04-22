@@ -2,7 +2,7 @@ package es.taw.gestionbanco.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,18 +11,18 @@ public class TipoestadocuentaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Basic
     @Column(name = "estadoCuenta", nullable = false, length = 255)
     private String estadoCuenta;
     @OneToMany(mappedBy = "tipoestadocuentaByEstadoCuenta")
-    private Collection<CuentabancoEntity> cuentabancosById;
+    private List<CuentabancoEntity> cuentabancosById;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,7 +39,7 @@ public class TipoestadocuentaEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TipoestadocuentaEntity that = (TipoestadocuentaEntity) o;
-        return id == that.id && Objects.equals(estadoCuenta, that.estadoCuenta);
+        return Objects.equals(id, that.id) && Objects.equals(estadoCuenta, that.estadoCuenta);
     }
 
     @Override
@@ -47,11 +47,11 @@ public class TipoestadocuentaEntity {
         return Objects.hash(id, estadoCuenta);
     }
 
-    public Collection<CuentabancoEntity> getCuentabancosById() {
+    public List<CuentabancoEntity> getCuentabancosById() {
         return cuentabancosById;
     }
 
-    public void setCuentabancosById(Collection<CuentabancoEntity> cuentabancosById) {
+    public void setCuentabancosById(List<CuentabancoEntity> cuentabancosById) {
         this.cuentabancosById = cuentabancosById;
     }
 }

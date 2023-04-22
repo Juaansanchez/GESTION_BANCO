@@ -3,7 +3,7 @@ package es.taw.gestionbanco.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +12,7 @@ public class TransaccionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Basic
     @Column(name = "fechaInstruccion", nullable = false)
     private Date fechaInstruccion;
@@ -22,13 +22,13 @@ public class TransaccionEntity {
     @OneToOne(mappedBy = "transaccionByIdTransaccion")
     private CambiodivisaEntity cambiodivisaById;
     @OneToMany(mappedBy = "transaccionByIdTransaccion")
-    private Collection<PagoEntity> pagosById;
+    private List<PagoEntity> pagosById;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -53,7 +53,7 @@ public class TransaccionEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TransaccionEntity that = (TransaccionEntity) o;
-        return id == that.id && Objects.equals(fechaInstruccion, that.fechaInstruccion) && Objects.equals(fechaEjecucion, that.fechaEjecucion);
+        return Objects.equals(id, that.id) && Objects.equals(fechaInstruccion, that.fechaInstruccion) && Objects.equals(fechaEjecucion, that.fechaEjecucion);
     }
 
     @Override
@@ -69,11 +69,11 @@ public class TransaccionEntity {
         this.cambiodivisaById = cambiodivisaById;
     }
 
-    public Collection<PagoEntity> getPagosById() {
+    public List<PagoEntity> getPagosById() {
         return pagosById;
     }
 
-    public void setPagosById(Collection<PagoEntity> pagosById) {
+    public void setPagosById(List<PagoEntity> pagosById) {
         this.pagosById = pagosById;
     }
 }

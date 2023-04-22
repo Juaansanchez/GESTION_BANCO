@@ -3,7 +3,7 @@ package es.taw.gestionbanco.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,28 +12,28 @@ public class EmpresaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Basic
     @Column(name = "nombre", nullable = false, length = 255)
     private String nombre;
     @Basic
-    @Column(name = "fechaCierre", nullable = false)
+    @Column(name = "fechaCierre", nullable = true)
     private Date fechaCierre;
     @OneToMany(mappedBy = "empresaByIdEmpresa")
-    private Collection<AsistenteEntity> asistentesById;
+    private List<AsistenteEntity> asistentesById;
     @OneToMany(mappedBy = "empresaByIdEmpresa")
-    private Collection<AutorizadoEntity> autorizadosById;
+    private List<AutorizadoEntity> autorizadosById;
     @OneToOne
     @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
     private ClienteEntity clienteById;
     @OneToMany(mappedBy = "empresaByIdEmpresa")
-    private Collection<SocioEntity> sociosById;
+    private List<SocioEntity> sociosById;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -58,7 +58,7 @@ public class EmpresaEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmpresaEntity that = (EmpresaEntity) o;
-        return id == that.id && Objects.equals(nombre, that.nombre) && Objects.equals(fechaCierre, that.fechaCierre);
+        return Objects.equals(id, that.id) && Objects.equals(nombre, that.nombre) && Objects.equals(fechaCierre, that.fechaCierre);
     }
 
     @Override
@@ -66,19 +66,19 @@ public class EmpresaEntity {
         return Objects.hash(id, nombre, fechaCierre);
     }
 
-    public Collection<AsistenteEntity> getAsistentesById() {
+    public List<AsistenteEntity> getAsistentesById() {
         return asistentesById;
     }
 
-    public void setAsistentesById(Collection<AsistenteEntity> asistentesById) {
+    public void setAsistentesById(List<AsistenteEntity> asistentesById) {
         this.asistentesById = asistentesById;
     }
 
-    public Collection<AutorizadoEntity> getAutorizadosById() {
+    public List<AutorizadoEntity> getAutorizadosById() {
         return autorizadosById;
     }
 
-    public void setAutorizadosById(Collection<AutorizadoEntity> autorizadosById) {
+    public void setAutorizadosById(List<AutorizadoEntity> autorizadosById) {
         this.autorizadosById = autorizadosById;
     }
 
@@ -90,11 +90,11 @@ public class EmpresaEntity {
         this.clienteById = clienteById;
     }
 
-    public Collection<SocioEntity> getSociosById() {
+    public List<SocioEntity> getSociosById() {
         return sociosById;
     }
 
-    public void setSociosById(Collection<SocioEntity> sociosById) {
+    public void setSociosById(List<SocioEntity> sociosById) {
         this.sociosById = sociosById;
     }
 }

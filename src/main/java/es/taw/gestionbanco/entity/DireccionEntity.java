@@ -10,16 +10,16 @@ public class DireccionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Basic
-    @Column(name = "tipo", nullable = false, length = 255)
+    @Column(name = "tipo", nullable = true, length = 255)
     private String tipo;
     @Basic
     @Column(name = "calle", nullable = false, length = 255)
     private String calle;
     @Basic
     @Column(name = "numero", nullable = false)
-    private int numero;
+    private Integer numero;
     @Basic
     @Column(name = "plantaPuertaOficina", nullable = false, length = 255)
     private String plantaPuertaOficina;
@@ -36,17 +36,17 @@ public class DireccionEntity {
     @Column(name = "pais", nullable = false, length = 255)
     private String pais;
     @Basic
-    @Column(name = "valida", nullable = false)
-    private byte valida;
+    @Column(name = "valida", nullable = true)
+    private Byte valida;
     @ManyToOne
     @JoinColumn(name = "idCliente", referencedColumnName = "id", nullable = false)
     private ClienteEntity clienteByIdCliente;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -66,11 +66,11 @@ public class DireccionEntity {
         this.calle = calle;
     }
 
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
 
@@ -114,11 +114,11 @@ public class DireccionEntity {
         this.pais = pais;
     }
 
-    public byte getValida() {
+    public Byte getValida() {
         return valida;
     }
 
-    public void setValida(byte valida) {
+    public void setValida(Byte valida) {
         this.valida = valida;
     }
 
@@ -127,7 +127,7 @@ public class DireccionEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DireccionEntity that = (DireccionEntity) o;
-        return id == that.id && numero == that.numero && valida == that.valida && Objects.equals(tipo, that.tipo) && Objects.equals(calle, that.calle) && Objects.equals(plantaPuertaOficina, that.plantaPuertaOficina) && Objects.equals(ciudad, that.ciudad) && Objects.equals(region, that.region) && Objects.equals(codigoPostal, that.codigoPostal) && Objects.equals(pais, that.pais);
+        return Objects.equals(id, that.id) && Objects.equals(tipo, that.tipo) && Objects.equals(calle, that.calle) && Objects.equals(numero, that.numero) && Objects.equals(plantaPuertaOficina, that.plantaPuertaOficina) && Objects.equals(ciudad, that.ciudad) && Objects.equals(region, that.region) && Objects.equals(codigoPostal, that.codigoPostal) && Objects.equals(pais, that.pais) && Objects.equals(valida, that.valida);
     }
 
     @Override

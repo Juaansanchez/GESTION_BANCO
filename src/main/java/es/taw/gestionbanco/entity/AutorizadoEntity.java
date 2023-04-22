@@ -11,9 +11,9 @@ public class AutorizadoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Basic
-    @Column(name = "fechaFin", nullable = false)
+    @Column(name = "fechaFin", nullable = true)
     private Date fechaFin;
     @Basic
     @Column(name = "dni", nullable = false, length = 255)
@@ -31,11 +31,11 @@ public class AutorizadoEntity {
     @JoinColumn(name = "estadoAutorizado", referencedColumnName = "id", nullable = false)
     private TipoestadoautorizadoEntity tipoestadoautorizadoByEstadoAutorizado;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -60,7 +60,7 @@ public class AutorizadoEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AutorizadoEntity that = (AutorizadoEntity) o;
-        return id == that.id && Objects.equals(fechaFin, that.fechaFin) && Objects.equals(dni, that.dni);
+        return Objects.equals(id, that.id) && Objects.equals(fechaFin, that.fechaFin) && Objects.equals(dni, that.dni);
     }
 
     @Override

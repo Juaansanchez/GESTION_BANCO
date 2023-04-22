@@ -3,7 +3,7 @@ package es.taw.gestionbanco.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +12,7 @@ public class BeneficiarioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idBeneficiario", nullable = false)
-    private int idBeneficiario;
+    private Integer idBeneficiario;
     @Basic
     @Column(name = "nombre", nullable = false, length = 255)
     private String nombre;
@@ -33,7 +33,7 @@ public class BeneficiarioEntity {
     private String numeroCuenta;
     @Basic
     @Column(name = "swift", nullable = false)
-    private byte swift;
+    private Byte swift;
     @Basic
     @Column(name = "paisCuenta", nullable = false, length = 255)
     private String paisCuenta;
@@ -44,13 +44,13 @@ public class BeneficiarioEntity {
     @JoinColumn(name = "idCliente", referencedColumnName = "id", nullable = false)
     private ClienteEntity clienteByIdCliente;
     @OneToMany(mappedBy = "beneficiarioByIdBeneficiario")
-    private Collection<PagoEntity> pagosByIdBeneficiario;
+    private List<PagoEntity> pagosByIdBeneficiario;
 
-    public int getIdBeneficiario() {
+    public Integer getIdBeneficiario() {
         return idBeneficiario;
     }
 
-    public void setIdBeneficiario(int idBeneficiario) {
+    public void setIdBeneficiario(Integer idBeneficiario) {
         this.idBeneficiario = idBeneficiario;
     }
 
@@ -102,11 +102,11 @@ public class BeneficiarioEntity {
         this.numeroCuenta = numeroCuenta;
     }
 
-    public byte getSwift() {
+    public Byte getSwift() {
         return swift;
     }
 
-    public void setSwift(byte swift) {
+    public void setSwift(Byte swift) {
         this.swift = swift;
     }
 
@@ -131,7 +131,7 @@ public class BeneficiarioEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BeneficiarioEntity that = (BeneficiarioEntity) o;
-        return idBeneficiario == that.idBeneficiario && swift == that.swift && Objects.equals(nombre, that.nombre) && Objects.equals(apellido, that.apellido) && Objects.equals(pais, that.pais) && Objects.equals(moneda, that.moneda) && Objects.equals(ibanCuenta, that.ibanCuenta) && Objects.equals(numeroCuenta, that.numeroCuenta) && Objects.equals(paisCuenta, that.paisCuenta) && Objects.equals(fechaNacimiento, that.fechaNacimiento);
+        return Objects.equals(idBeneficiario, that.idBeneficiario) && Objects.equals(nombre, that.nombre) && Objects.equals(apellido, that.apellido) && Objects.equals(pais, that.pais) && Objects.equals(moneda, that.moneda) && Objects.equals(ibanCuenta, that.ibanCuenta) && Objects.equals(numeroCuenta, that.numeroCuenta) && Objects.equals(swift, that.swift) && Objects.equals(paisCuenta, that.paisCuenta) && Objects.equals(fechaNacimiento, that.fechaNacimiento);
     }
 
     @Override
@@ -147,11 +147,11 @@ public class BeneficiarioEntity {
         this.clienteByIdCliente = clienteByIdCliente;
     }
 
-    public Collection<PagoEntity> getPagosByIdBeneficiario() {
+    public List<PagoEntity> getPagosByIdBeneficiario() {
         return pagosByIdBeneficiario;
     }
 
-    public void setPagosByIdBeneficiario(Collection<PagoEntity> pagosByIdBeneficiario) {
+    public void setPagosByIdBeneficiario(List<PagoEntity> pagosByIdBeneficiario) {
         this.pagosByIdBeneficiario = pagosByIdBeneficiario;
     }
 }

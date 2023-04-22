@@ -2,7 +2,7 @@ package es.taw.gestionbanco.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,18 +11,18 @@ public class AsistenteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idAsistente", nullable = false)
-    private int idAsistente;
+    private Integer idAsistente;
     @ManyToOne
     @JoinColumn(name = "idEmpresa", referencedColumnName = "id", nullable = false)
     private EmpresaEntity empresaByIdEmpresa;
     @OneToMany(mappedBy = "asistenteByIdEmpleado")
-    private Collection<ChatEntity> chatsByIdAsistente;
+    private List<ChatEntity> chatsByIdAsistente;
 
-    public int getIdAsistente() {
+    public Integer getIdAsistente() {
         return idAsistente;
     }
 
-    public void setIdAsistente(int idAsistente) {
+    public void setIdAsistente(Integer idAsistente) {
         this.idAsistente = idAsistente;
     }
 
@@ -31,7 +31,7 @@ public class AsistenteEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AsistenteEntity that = (AsistenteEntity) o;
-        return idAsistente == that.idAsistente;
+        return Objects.equals(idAsistente, that.idAsistente);
     }
 
     @Override
@@ -47,11 +47,11 @@ public class AsistenteEntity {
         this.empresaByIdEmpresa = empresaByIdEmpresa;
     }
 
-    public Collection<ChatEntity> getChatsByIdAsistente() {
+    public List<ChatEntity> getChatsByIdAsistente() {
         return chatsByIdAsistente;
     }
 
-    public void setChatsByIdAsistente(Collection<ChatEntity> chatsByIdAsistente) {
+    public void setChatsByIdAsistente(List<ChatEntity> chatsByIdAsistente) {
         this.chatsByIdAsistente = chatsByIdAsistente;
     }
 }

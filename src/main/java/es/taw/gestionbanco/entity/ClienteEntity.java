@@ -3,7 +3,7 @@ package es.taw.gestionbanco.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +12,7 @@ public class ClienteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Basic
     @Column(name = "numeroIdentificacion", nullable = false, length = 255)
     private String numeroIdentificacion;
@@ -23,26 +23,26 @@ public class ClienteEntity {
     @Column(name = "fechaInicio", nullable = false)
     private Date fechaInicio;
     @OneToMany(mappedBy = "clienteByIdCliente")
-    private Collection<BeneficiarioEntity> beneficiariosById;
+    private List<BeneficiarioEntity> beneficiariosById;
     @OneToMany(mappedBy = "clienteByIdCliente")
-    private Collection<ChatEntity> chatsById;
+    private List<ChatEntity> chatsById;
     @OneToOne
     @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
     private PersonaEntity personaById;
     @OneToMany(mappedBy = "clienteByIdCliente")
-    private Collection<CuentabancoEntity> cuentabancosById;
+    private List<CuentabancoEntity> cuentabancosById;
     @OneToMany(mappedBy = "clienteByIdCliente")
-    private Collection<DireccionEntity> direccionsById;
+    private List<DireccionEntity> direccionsById;
     @OneToOne(mappedBy = "clienteById")
     private EmpresaEntity empresaById;
     @OneToMany(mappedBy = "clienteByEmisor")
-    private Collection<MensajeEntity> mensajesById;
+    private List<MensajeEntity> mensajesById;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,7 +75,7 @@ public class ClienteEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ClienteEntity that = (ClienteEntity) o;
-        return id == that.id && Objects.equals(numeroIdentificacion, that.numeroIdentificacion) && Objects.equals(estado, that.estado) && Objects.equals(fechaInicio, that.fechaInicio);
+        return Objects.equals(id, that.id) && Objects.equals(numeroIdentificacion, that.numeroIdentificacion) && Objects.equals(estado, that.estado) && Objects.equals(fechaInicio, that.fechaInicio);
     }
 
     @Override
@@ -83,19 +83,19 @@ public class ClienteEntity {
         return Objects.hash(id, numeroIdentificacion, estado, fechaInicio);
     }
 
-    public Collection<BeneficiarioEntity> getBeneficiariosById() {
+    public List<BeneficiarioEntity> getBeneficiariosById() {
         return beneficiariosById;
     }
 
-    public void setBeneficiariosById(Collection<BeneficiarioEntity> beneficiariosById) {
+    public void setBeneficiariosById(List<BeneficiarioEntity> beneficiariosById) {
         this.beneficiariosById = beneficiariosById;
     }
 
-    public Collection<ChatEntity> getChatsById() {
+    public List<ChatEntity> getChatsById() {
         return chatsById;
     }
 
-    public void setChatsById(Collection<ChatEntity> chatsById) {
+    public void setChatsById(List<ChatEntity> chatsById) {
         this.chatsById = chatsById;
     }
 
@@ -107,19 +107,19 @@ public class ClienteEntity {
         this.personaById = personaById;
     }
 
-    public Collection<CuentabancoEntity> getCuentabancosById() {
+    public List<CuentabancoEntity> getCuentabancosById() {
         return cuentabancosById;
     }
 
-    public void setCuentabancosById(Collection<CuentabancoEntity> cuentabancosById) {
+    public void setCuentabancosById(List<CuentabancoEntity> cuentabancosById) {
         this.cuentabancosById = cuentabancosById;
     }
 
-    public Collection<DireccionEntity> getDireccionsById() {
+    public List<DireccionEntity> getDireccionsById() {
         return direccionsById;
     }
 
-    public void setDireccionsById(Collection<DireccionEntity> direccionsById) {
+    public void setDireccionsById(List<DireccionEntity> direccionsById) {
         this.direccionsById = direccionsById;
     }
 
@@ -131,11 +131,11 @@ public class ClienteEntity {
         this.empresaById = empresaById;
     }
 
-    public Collection<MensajeEntity> getMensajesById() {
+    public List<MensajeEntity> getMensajesById() {
         return mensajesById;
     }
 
-    public void setMensajesById(Collection<MensajeEntity> mensajesById) {
+    public void setMensajesById(List<MensajeEntity> mensajesById) {
         this.mensajesById = mensajesById;
     }
 }

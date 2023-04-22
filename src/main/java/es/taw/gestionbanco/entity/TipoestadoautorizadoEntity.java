@@ -2,7 +2,7 @@ package es.taw.gestionbanco.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,18 +11,18 @@ public class TipoestadoautorizadoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Basic
     @Column(name = "estadoAutorizado", nullable = false, length = 255)
     private String estadoAutorizado;
     @OneToMany(mappedBy = "tipoestadoautorizadoByEstadoAutorizado")
-    private Collection<AutorizadoEntity> autorizadosById;
+    private List<AutorizadoEntity> autorizadosById;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,7 +39,7 @@ public class TipoestadoautorizadoEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TipoestadoautorizadoEntity that = (TipoestadoautorizadoEntity) o;
-        return id == that.id && Objects.equals(estadoAutorizado, that.estadoAutorizado);
+        return Objects.equals(id, that.id) && Objects.equals(estadoAutorizado, that.estadoAutorizado);
     }
 
     @Override
@@ -47,11 +47,11 @@ public class TipoestadoautorizadoEntity {
         return Objects.hash(id, estadoAutorizado);
     }
 
-    public Collection<AutorizadoEntity> getAutorizadosById() {
+    public List<AutorizadoEntity> getAutorizadosById() {
         return autorizadosById;
     }
 
-    public void setAutorizadosById(Collection<AutorizadoEntity> autorizadosById) {
+    public void setAutorizadosById(List<AutorizadoEntity> autorizadosById) {
         this.autorizadosById = autorizadosById;
     }
 }

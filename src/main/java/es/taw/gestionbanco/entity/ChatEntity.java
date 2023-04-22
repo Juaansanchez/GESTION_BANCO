@@ -2,7 +2,7 @@ package es.taw.gestionbanco.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,10 +11,10 @@ public class ChatEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idChat", nullable = false)
-    private int idChat;
+    private Integer idChat;
     @Basic
     @Column(name = "estado", nullable = false)
-    private byte estado;
+    private Byte estado;
     @ManyToOne
     @JoinColumn(name = "idCliente", referencedColumnName = "id", nullable = false)
     private ClienteEntity clienteByIdCliente;
@@ -22,21 +22,21 @@ public class ChatEntity {
     @JoinColumn(name = "idEmpleado", referencedColumnName = "idAsistente", nullable = false)
     private AsistenteEntity asistenteByIdEmpleado;
     @OneToMany(mappedBy = "chatByChat")
-    private Collection<MensajeEntity> mensajesByIdChat;
+    private List<MensajeEntity> mensajesByIdChat;
 
-    public int getIdChat() {
+    public Integer getIdChat() {
         return idChat;
     }
 
-    public void setIdChat(int idChat) {
+    public void setIdChat(Integer idChat) {
         this.idChat = idChat;
     }
 
-    public byte getEstado() {
+    public Byte getEstado() {
         return estado;
     }
 
-    public void setEstado(byte estado) {
+    public void setEstado(Byte estado) {
         this.estado = estado;
     }
 
@@ -45,7 +45,7 @@ public class ChatEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChatEntity that = (ChatEntity) o;
-        return idChat == that.idChat && estado == that.estado;
+        return Objects.equals(idChat, that.idChat) && Objects.equals(estado, that.estado);
     }
 
     @Override
@@ -69,11 +69,11 @@ public class ChatEntity {
         this.asistenteByIdEmpleado = asistenteByIdEmpleado;
     }
 
-    public Collection<MensajeEntity> getMensajesByIdChat() {
+    public List<MensajeEntity> getMensajesByIdChat() {
         return mensajesByIdChat;
     }
 
-    public void setMensajesByIdChat(Collection<MensajeEntity> mensajesByIdChat) {
+    public void setMensajesByIdChat(List<MensajeEntity> mensajesByIdChat) {
         this.mensajesByIdChat = mensajesByIdChat;
     }
 }

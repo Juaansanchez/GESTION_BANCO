@@ -3,7 +3,7 @@ package es.taw.gestionbanco.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +12,7 @@ public class CuentabancoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @Basic
     @Column(name = "fecha_apertura", nullable = true)
     private Date fechaApertura;
@@ -27,12 +27,12 @@ public class CuentabancoEntity {
     private String ibanCuenta;
     @Basic
     @Column(name = "swift", nullable = false)
-    private byte swift;
+    private Byte swift;
     @Basic
     @Column(name = "pais", nullable = false, length = 255)
     private String pais;
     @OneToMany(mappedBy = "cuentabancoByIdCuentaBanco")
-    private Collection<AutorizadoEntity> autorizadosById;
+    private List<AutorizadoEntity> autorizadosById;
     @ManyToOne
     @JoinColumn(name = "entidadBancaria", referencedColumnName = "id", nullable = false)
     private EntidadbancariaEntity entidadbancariaByEntidadBancaria;
@@ -43,11 +43,11 @@ public class CuentabancoEntity {
     @JoinColumn(name = "estadoCuenta", referencedColumnName = "id", nullable = false)
     private TipoestadocuentaEntity tipoestadocuentaByEstadoCuenta;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -83,11 +83,11 @@ public class CuentabancoEntity {
         this.ibanCuenta = ibanCuenta;
     }
 
-    public byte getSwift() {
+    public Byte getSwift() {
         return swift;
     }
 
-    public void setSwift(byte swift) {
+    public void setSwift(Byte swift) {
         this.swift = swift;
     }
 
@@ -104,7 +104,7 @@ public class CuentabancoEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CuentabancoEntity that = (CuentabancoEntity) o;
-        return id == that.id && swift == that.swift && Objects.equals(fechaApertura, that.fechaApertura) && Objects.equals(fechaCierre, that.fechaCierre) && Objects.equals(moneda, that.moneda) && Objects.equals(ibanCuenta, that.ibanCuenta) && Objects.equals(pais, that.pais);
+        return Objects.equals(id, that.id) && Objects.equals(fechaApertura, that.fechaApertura) && Objects.equals(fechaCierre, that.fechaCierre) && Objects.equals(moneda, that.moneda) && Objects.equals(ibanCuenta, that.ibanCuenta) && Objects.equals(swift, that.swift) && Objects.equals(pais, that.pais);
     }
 
     @Override
@@ -112,11 +112,11 @@ public class CuentabancoEntity {
         return Objects.hash(id, fechaApertura, fechaCierre, moneda, ibanCuenta, swift, pais);
     }
 
-    public Collection<AutorizadoEntity> getAutorizadosById() {
+    public List<AutorizadoEntity> getAutorizadosById() {
         return autorizadosById;
     }
 
-    public void setAutorizadosById(Collection<AutorizadoEntity> autorizadosById) {
+    public void setAutorizadosById(List<AutorizadoEntity> autorizadosById) {
         this.autorizadosById = autorizadosById;
     }
 

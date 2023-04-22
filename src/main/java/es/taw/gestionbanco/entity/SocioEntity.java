@@ -10,7 +10,7 @@ public class SocioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
     @OneToOne
     @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
     private PersonaEntity personaById;
@@ -18,11 +18,11 @@ public class SocioEntity {
     @JoinColumn(name = "idEmpresa", referencedColumnName = "id", nullable = false)
     private EmpresaEntity empresaByIdEmpresa;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -31,7 +31,7 @@ public class SocioEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SocioEntity that = (SocioEntity) o;
-        return id == that.id;
+        return Objects.equals(id, that.id);
     }
 
     @Override

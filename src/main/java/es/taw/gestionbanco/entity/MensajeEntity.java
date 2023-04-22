@@ -11,7 +11,7 @@ public class MensajeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "idMensaje", nullable = false)
-    private int idMensaje;
+    private Integer idMensaje;
     @Basic
     @Column(name = "texto", nullable = true, length = 255)
     private String texto;
@@ -25,11 +25,11 @@ public class MensajeEntity {
     @JoinColumn(name = "emisor", referencedColumnName = "id", nullable = false)
     private ClienteEntity clienteByEmisor;
 
-    public int getIdMensaje() {
+    public Integer getIdMensaje() {
         return idMensaje;
     }
 
-    public void setIdMensaje(int idMensaje) {
+    public void setIdMensaje(Integer idMensaje) {
         this.idMensaje = idMensaje;
     }
 
@@ -54,7 +54,7 @@ public class MensajeEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MensajeEntity that = (MensajeEntity) o;
-        return idMensaje == that.idMensaje && Objects.equals(texto, that.texto) && Objects.equals(fechaEnvio, that.fechaEnvio);
+        return Objects.equals(idMensaje, that.idMensaje) && Objects.equals(texto, that.texto) && Objects.equals(fechaEnvio, that.fechaEnvio);
     }
 
     @Override

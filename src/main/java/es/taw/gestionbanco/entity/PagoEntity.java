@@ -7,18 +7,30 @@ import java.util.Objects;
 @Entity
 @Table(name = "pago", schema = "gestion_banco", catalog = "")
 public class PagoEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "idPago", nullable = false)
+    private Integer idPago;
     @Basic
     @Column(name = "moneda", nullable = false, length = 255)
     private String moneda;
     @Basic
     @Column(name = "cantidad", nullable = false)
-    private int cantidad;
+    private Integer cantidad;
     @ManyToOne
     @JoinColumn(name = "idTransaccion", referencedColumnName = "id", nullable = false)
     private TransaccionEntity transaccionByIdTransaccion;
     @ManyToOne
     @JoinColumn(name = "idBeneficiario", referencedColumnName = "idBeneficiario", nullable = false)
     private BeneficiarioEntity beneficiarioByIdBeneficiario;
+
+    public Integer getIdPago() {
+        return idPago;
+    }
+
+    public void setIdPago(Integer idPago) {
+        this.idPago = idPago;
+    }
 
     public String getMoneda() {
         return moneda;
@@ -28,11 +40,11 @@ public class PagoEntity {
         this.moneda = moneda;
     }
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -41,12 +53,12 @@ public class PagoEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PagoEntity that = (PagoEntity) o;
-        return cantidad == that.cantidad && Objects.equals(moneda, that.moneda);
+        return Objects.equals(idPago, that.idPago) && Objects.equals(moneda, that.moneda) && Objects.equals(cantidad, that.cantidad);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(moneda, cantidad);
+        return Objects.hash(idPago, moneda, cantidad);
     }
 
     public TransaccionEntity getTransaccionByIdTransaccion() {
