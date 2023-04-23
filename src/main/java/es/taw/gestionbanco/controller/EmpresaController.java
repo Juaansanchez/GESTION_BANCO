@@ -15,7 +15,7 @@ public class EmpresaController {
     @Autowired
     protected EmpresaEntityRepository empresaEntityRepository;
 
-    @GetMapping("/ ad")
+    @GetMapping("/")
     public String doAltaEmpresa (Model model){
         model.addAttribute("empresa",new EmpresaEntity());
         return "altaEmpresa";
