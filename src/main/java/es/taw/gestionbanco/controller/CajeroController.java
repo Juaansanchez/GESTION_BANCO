@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CajeroController {
@@ -20,9 +18,14 @@ public class CajeroController {
     CuentaBancoRepository cuentaBancoRepository;
 
     @GetMapping("/")
-    public String listaParametrosCuenta(@ModelAttribute("cliente") ClienteEntity cliente, Model model){
-        CuentabancoEntity cuentabancoEntity = cuentaBancoRepository.parametrosCliente(cliente.getId());
-        model.addAttribute(cuentabancoEntity);
+    public String muestraSesion(Model model){
+        ClienteEntity cliente = clienteEntityRepository.findById(1).orElse(null);
+        return "muestraSesion";
+    }
+    @PostMapping("/parametrosCuenta")
+    public String listaParametrosCuenta(@RequestParam("idCliente") int idCliente, Model model){
+        CuentabancoEntity cuentabancoCliente = cuentaBancoRepository.parametrosCliente(idCliente);
+        model.addAttribute(cuentabancoCliente);
         return "redirect:/";
     }
     @PutMapping ("/")
