@@ -17,6 +17,6 @@ public class AsistenteController {
 
     @GetMapping("")
     public String doListaChatsAsistente(@RequestParam("id") Integer idAsistente, Model model) {
-        List<ChatEntity> chats =
+        return null;
     }
 }
