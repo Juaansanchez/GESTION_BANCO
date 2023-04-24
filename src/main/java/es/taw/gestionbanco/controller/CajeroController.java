@@ -17,10 +17,11 @@ public class CajeroController {
     @Autowired
     CuentaBancoRepository cuentaBancoRepository;
 
-    @GetMapping("/")
-    public String muestraSesion(Model model){
-        ClienteEntity cliente = clienteEntityRepository.findById(1).orElse(null);
-        return "muestraSesion";
+    @GetMapping("/cajero/{id}")
+    public String muestraSesion(@PathVariable("id") int idCliente, Model model){
+        ClienteEntity cliente = clienteEntityRepository.buscaClientePorId(idCliente);
+        model.addAttribute("cliente");
+        return "cajero";
     }
     @PostMapping("/parametrosCuenta")
     public String listaParametrosCuenta(@RequestParam("idCliente") int idCliente, Model model){
@@ -28,7 +29,7 @@ public class CajeroController {
         model.addAttribute(cuentabancoCliente);
         return "redirect:/";
     }
-    @PutMapping ("/")
+    @PutMapping ("/datitos")
     public String modificaDatos(@ModelAttribute("cliente") ClienteEntity cliente){
       return "redirect:/";
     }

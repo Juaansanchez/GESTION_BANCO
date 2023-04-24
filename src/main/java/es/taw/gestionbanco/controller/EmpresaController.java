@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class EmpresaController {
-
     @Autowired
-    protected EmpresaEntityRepository empresaEntityRepository;
+    EmpresaEntityRepository empresaEntityRepository;
 
     @GetMapping("/")
     public String doAltaEmpresa (Model model){

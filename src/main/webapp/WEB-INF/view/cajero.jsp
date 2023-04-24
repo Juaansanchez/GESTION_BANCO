@@ -13,26 +13,25 @@
 </head>
 <body>
 <%
-    CuentabancoEntity cuentaCliente = (CuentabancoEntity) request.getAttribute("cuentabancoCliente");
+    ClienteEntity cliente = (ClienteEntity) request.getAttribute("cliente");
 %>
+<h1>Bienvenido <%=cliente.getPersonaById().getNombre()%></h1>
 
 <table>
     <thead>
         <tr>
-            <td>ID cliente </td>
-            <td>Nombre cliente: </td>
-            <td>Correo electronico: </td>
+            <td>Nombre completo: </td>
+            <td>DNI: </td>
             <td>Acciones: </td>
         </tr>
     </thead>
     <tbody>
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td> <%=cliente.getPersonaById().getNombre()%> , <%=cliente.getPersonaById().getApellido()%>, <%=cliente.getPersonaById().getSegundoApellido()%></td>
+        <td> <%=cliente.getPersonaById().getDni()%></td>
         <td>
-            <a href="perfilCajeroCliente.jsp?id=1">Perfil</a>
-            <a href="operacionesCajeroCliente.jsp?id=1">Operaciones Bancarias</a>
+            <a href="perfilCajeroCliente.jsp?id=<%=cliente.getId()%>">Perfil</a>
+            <a href="operacionesCajeroCliente.jsp?id=<%=cliente.getId()%>">Operaciones Bancarias</a>
         </td>
 
     </tr>
