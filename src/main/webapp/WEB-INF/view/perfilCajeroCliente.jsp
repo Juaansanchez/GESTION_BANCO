@@ -22,8 +22,12 @@
 
 <form action="/cajero/guardarCambiosCliente" method="post">
     <input type="hidden" name="id" value="<%=cliente.getId()%>">
+    <input type="hidden" name="dni" value="<%=cliente.getPersonaById().getDni()%>">
     <label>Nombre:</label>
     <input type="text" name="nombre" value="<%=cliente.getPersonaById().getNombre()%>">
+    <br>
+    <label>Segundo nombre:</label>
+    <input type="text" name="segundoNombre" value="<%=cliente.getPersonaById().getSegundoNombre()%>">
     <br>
     <label>Apellido:</label>
     <input type="text" name="apellido" value="<%=cliente.getPersonaById().getApellido()%>">

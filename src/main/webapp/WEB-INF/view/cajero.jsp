@@ -23,7 +23,7 @@
 <table>
         <tr>
             <th>Nombre: </th>
-            <td> <%=cliente.getPersonaById().getNombre()%>,  <%=cliente.getPersonaById().getApellido()%> <%=cliente.getPersonaById().getSegundoApellido()%> </td>
+            <td> <%=cliente.getPersonaById().getNombre()%> <%=cliente.getPersonaById().getSegundoNombre()%>,  <%=cliente.getPersonaById().getApellido()%> <%=cliente.getPersonaById().getSegundoApellido()%> </td>
         </tr>
         <tr>
             <th>DNI: </th>

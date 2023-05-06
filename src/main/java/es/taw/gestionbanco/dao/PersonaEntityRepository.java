@@ -9,10 +9,5 @@ import org.springframework.data.repository.query.Param;
 import java.sql.Date;
 
 public interface PersonaEntityRepository extends JpaRepository<PersonaEntity, Integer> {
-    @Modifying
-    @Query("UPDATE PersonaEntity p " +
-            "SET p.nombre = :nombre, p.apellido=:apellido, p.segundoApellido=:segundoApellido, p.fechaNacimiento=:fechaNacimiento " +
-            "WHERE p.id=:id")
-    void actualizaCliente(@Param("id") int id,@Param("nombre") String nombre, @Param("apellido")String apellido,
-                          @Param("segundoApellido") String segundoApellido,@Param("fechaNacimiento") Date fechaNacimiento);
+
 }

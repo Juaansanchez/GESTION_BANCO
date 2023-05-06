@@ -4,6 +4,7 @@ import es.taw.gestionbanco.dao.ClienteEntityRepository;
 import es.taw.gestionbanco.dao.CuentaBancoRepository;
 import es.taw.gestionbanco.dao.PersonaEntityRepository;
 import es.taw.gestionbanco.entity.ClienteEntity;
+import es.taw.gestionbanco.entity.PersonaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,10 +45,21 @@ public class CajeroController {
     }
 
     @PostMapping("/guardarCambiosCliente")
-    public String modificaCambiosCliente(@RequestParam("id") int id, @RequestParam("nombre") String nombre,
+    public String modificaCambiosCliente(@RequestParam("id") int id,@RequestParam("dni") String dni,
+                                         @RequestParam("nombre") String nombre,@RequestParam("segundoNombre") String segundoNombre,
                                          @RequestParam("apellido")String apellido, @RequestParam("segundoApellido") String segundoApellido,
                                          @RequestParam("fechaNacimiento") Date fechaNacimiento){
-        this.personaEntityRepository.actualizaCliente(id,nombre,apellido,segundoApellido,fechaNacimiento);
-        return "redirect:/cajero/perfil?id="+id;
+
+        PersonaEntity persona = this.personaEntityRepository.findById(id).orElse(null);
+
+        persona.setNombre(nombre);
+        persona.setSegundoNombre(segundoNombre);
+        persona.setApellido(apellido);
+        persona.setSegundoApellido(segundoApellido);
+        persona.setFechaNacimiento(fechaNacimiento);
+
+        this.personaEntityRepository.save(persona);
+
+        return "redirect:/cajero?id="+id;
     }
 }
