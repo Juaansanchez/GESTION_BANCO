@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page import="es.taw.gestionbanco.entity.ClienteEntity" %>
 <%@ page import="es.taw.gestionbanco.entity.CuentabancoEntity" %><%--
   Created by IntelliJ IDEA.
@@ -17,7 +18,7 @@
 </head>
 <body>
 
-<h1>Bienvenido <%=cliente.getId()%> </h1>
+<h1>Bienvenido <%=cliente.getPersonaById().getNombre()%> </h1>
 
 <table>
         <tr>
@@ -29,9 +30,13 @@
             <td><%=cliente.getNumeroIdentificacion()%></td>
         </tr>
         <tr>
+            <th>Estado de cuenta: </th>
+            <td><%=cliente.getEstado()%></td>
+        </tr>
+        <tr>
             <th>Acciones: </th>
-            <td> <a href="perfilCajeroCliente.jsp?id=<%=cliente.getId()%>">Perfil</a></td>
-            <td> <a href="operacionesCajeroCliente.jsp?id=<%=cliente.getId()%>">Operaciones Bancarias</a></td>
+            <td> <a href="/cajero/perfil?id=<%=cliente.getId()%>">Perfil</a></td>
+            <td> <a href="/cajero/operaciones?id=<%=cliente.getId()%>">Operaciones Bancarias</a></td>
         </tr>
 </table>
 
