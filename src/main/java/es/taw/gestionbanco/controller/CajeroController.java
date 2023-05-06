@@ -10,17 +10,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
+@RequestMapping("/cajero")
 public class CajeroController {
     @Autowired
     ClienteEntityRepository clienteEntityRepository;
     @Autowired
     CuentaBancoRepository cuentaBancoRepository;
 
-    @GetMapping("/cajero/{id}")
-    public String muestraSesion(@PathVariable("id") int idCliente, Model model){
-        ClienteEntity cliente = clienteEntityRepository.buscaClientePorId(idCliente);
-        model.addAttribute("cliente");
+    @GetMapping("")
+    public String muestraSesion(@RequestParam("id") int idCliente, Model model){
+        ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
+        model.addAttribute("cliente",cliente);
         return "cajero";
     }
     @PostMapping("/parametrosCuenta")
@@ -29,7 +32,7 @@ public class CajeroController {
         model.addAttribute(cuentabancoCliente);
         return "redirect:/";
     }
-    @PutMapping ("/datitos")
+    @PutMapping ("/modificaDatos")
     public String modificaDatos(@ModelAttribute("cliente") ClienteEntity cliente){
       return "redirect:/";
     }
