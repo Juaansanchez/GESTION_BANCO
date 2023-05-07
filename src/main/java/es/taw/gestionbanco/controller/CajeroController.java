@@ -1,15 +1,23 @@
 package es.taw.gestionbanco.controller;
 
+import es.taw.gestionbanco.dao.BeneficiarioEntityRepository;
 import es.taw.gestionbanco.dao.ClienteEntityRepository;
 import es.taw.gestionbanco.dao.CuentaBancoRepository;
 import es.taw.gestionbanco.dao.PersonaEntityRepository;
 import es.taw.gestionbanco.entity.ClienteEntity;
+import es.taw.gestionbanco.entity.CuentabancoEntity;
 import es.taw.gestionbanco.entity.PersonaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -21,34 +29,107 @@ public class CajeroController {
     CuentaBancoRepository cuentaBancoRepository;
     @Autowired
     PersonaEntityRepository personaEntityRepository;
+    @Autowired
+    BeneficiarioEntityRepository beneficiarioEntityRepository;
 
     @GetMapping("")
-    public String muestraSesion(@RequestParam("id") int idCliente, Model model){
+    public String muestraSesion(@RequestParam("id") Integer idCliente, Model model) {
 
         ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
-        model.addAttribute("cliente",cliente);
+        model.addAttribute("cliente", cliente);
+
+        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> cuentas = new ArrayList<>();
+
+        for (CuentabancoEntity c : todasLasCuentas) {
+            if (c.getClienteByIdCliente().getId() == idCliente) {
+                cuentas.add(c);
+            }
+        }
+
+        model.addAttribute("cuentas", cuentas);
 
         return "cajero";
     }
+
     @GetMapping("/perfil")
-    public String perfilCliente(@RequestParam("id") int idCliente, Model model){
+    public String perfilCliente(@RequestParam("id") Integer idCliente, Model model) {
 
         ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
         model.addAttribute("cliente", cliente);
 
         return "perfilCajeroCliente";
     }
-    @GetMapping ("/operaciones")
-    public String operacionesCliente(@RequestParam("id") int idCliente, Model model){
 
-      return "operacionesCajeroCliente";
+    @GetMapping("/transferencias")
+    public String transferenciasCliente(@RequestParam("id") Integer idCliente, Model model) {
+
+        ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
+        model.addAttribute("cliente", cliente);
+
+        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
+
+        for (CuentabancoEntity c : todasLasCuentas) {
+            if (c.getClienteByIdCliente().getId() == idCliente) {
+                cuentasCliente.add(c);
+            }
+        }
+        model.addAttribute("cuentasCliente", cuentasCliente);
+
+        return "transferencias";
+    }
+
+    @GetMapping("/retiroDinero")
+    public String retiradaDineroCliente(@RequestParam("id") Integer idCliente, Model model) {
+
+        ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
+        model.addAttribute("cliente", cliente);
+
+        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
+
+        for (CuentabancoEntity c : todasLasCuentas) {
+            if (c.getClienteByIdCliente().getId() == idCliente) {
+                cuentasCliente.add(c);
+            }
+        }
+        model.addAttribute("cuentasCliente", cuentasCliente);
+        return "retiroDinero";
+    }
+
+    @GetMapping("/cambioDivisa")
+    public String cambioDivisaCliente(@RequestParam("id") Integer idCliente, Model model) {
+
+        ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
+        model.addAttribute("cliente", cliente);
+
+        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
+
+        for (CuentabancoEntity c : todasLasCuentas) {
+            if (c.getClienteByIdCliente().getId() == idCliente) {
+                cuentasCliente.add(c);
+            }
+        }
+        model.addAttribute("cuentasCliente", cuentasCliente);
+        return "cambioDivisa";
+    }
+
+    @GetMapping("/operaciones")
+    public String operacionesCliente(@RequestParam("id") Integer idCliente, Model model) {
+
+        ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
+        model.addAttribute("cliente", cliente);
+
+        return "operacionesCajeroCliente";
     }
 
     @PostMapping("/guardarCambiosCliente")
-    public String modificaCambiosCliente(@RequestParam("id") int id,@RequestParam("dni") String dni,
-                                         @RequestParam("nombre") String nombre,@RequestParam("segundoNombre") String segundoNombre,
-                                         @RequestParam("apellido")String apellido, @RequestParam("segundoApellido") String segundoApellido,
-                                         @RequestParam("fechaNacimiento") Date fechaNacimiento){
+    public String modificaCambiosCliente(@RequestParam("id") Integer id, @RequestParam("dni") String dni,
+                                         @RequestParam("nombre") String nombre, @RequestParam("segundoNombre") String segundoNombre,
+                                         @RequestParam("apellido") String apellido, @RequestParam("segundoApellido") String segundoApellido,
+                                         @RequestParam("fechaNacimiento") Date fechaNacimiento) {
 
         PersonaEntity persona = this.personaEntityRepository.findById(id).orElse(null);
 
@@ -60,6 +141,99 @@ public class CajeroController {
 
         this.personaEntityRepository.save(persona);
 
-        return "redirect:/cajero?id="+id;
+        return "redirect:/cajero?id=" + id;
+    }
+
+    @PostMapping("/transferirDinero")
+    public String transfiereDinero(@RequestParam("id") Integer id, @RequestParam("cuentaBanco") String cuentaBanco,
+                                   @RequestParam("importe") Integer importe, @RequestParam("cuentaDestino") String cuentaDestino) {
+
+        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
+        List<CuentabancoEntity> cuentasBeneficiario = new ArrayList<>();
+
+        for (CuentabancoEntity c : todasLasCuentas) {
+            if (c.getClienteByIdCliente().getId() == id) {
+                cuentasCliente.add(c);
+            }
+            if (c.getIbanCuenta() == cuentaDestino) {
+                cuentasBeneficiario.add(c);
+            }
+        }
+
+        for (CuentabancoEntity c : cuentasCliente) {
+            if (c.getIbanCuenta() == cuentaBanco) {
+                c.setSaldo(c.getSaldo() - importe);
+                cuentaBancoRepository.saveAndFlush(c);
+            }
+        }
+
+        for (CuentabancoEntity c : cuentasBeneficiario) {
+            if (c.getIbanCuenta() == cuentaDestino) {
+                c.setSaldo(c.getSaldo() + importe);
+                cuentaBancoRepository.saveAndFlush(c);
+            }
+        }
+
+        return "redirect:/cajero?id=" + id;
+    }
+
+    @PostMapping("/retirarDinero")
+    public String retiraDinero(@RequestParam("id") Integer id, @RequestParam("cuentaBanco") String cuentaBanco,
+                               @RequestParam("importe") Integer importe) {
+
+        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
+
+        for (CuentabancoEntity c : todasLasCuentas) {
+            if (c.getClienteByIdCliente().getId() == id) {
+                cuentasCliente.add(c);
+            }
+        }
+
+        for (CuentabancoEntity c : cuentasCliente) {
+            if (c.getIbanCuenta() == cuentaBanco) {
+                c.setSaldo(c.getSaldo() - importe);
+                cuentaBancoRepository.saveAndFlush(c);
+            }
+        }
+
+
+        return "redirect:/cajero?id=" + id;
+    }
+
+    @PostMapping("/cambioDivisa")
+    public String cambioDivisa(@RequestParam("id") Integer id, @RequestParam("cuentaBanco") String cuentaBanco,
+                               @RequestParam("importe") Integer importe, @RequestParam("divisa") String divisa, Model model) {
+
+        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
+
+        for (CuentabancoEntity c : todasLasCuentas) {
+            if (c.getClienteByIdCliente().getId() == id) {
+                cuentasCliente.add(c);
+            }
+        }
+
+        for (CuentabancoEntity c : cuentasCliente) {
+            if (c.getIbanCuenta() == cuentaBanco) {
+                int saldo = c.getSaldo();
+                int importeCambiado = importe;
+                if (divisa == "libra") {
+                    importeCambiado = (int) (importeCambiado * 0.88);
+                    saldo = (int) (saldo - importeCambiado);
+                    c.setSaldo(saldo);
+                    cuentaBancoRepository.saveAndFlush(c);
+                } else if (divisa == "dollar") {
+                    importeCambiado = (int) (importeCambiado * 1.12);
+                    saldo = (int) (saldo - importeCambiado);
+                    c.setSaldo(saldo);
+                    cuentaBancoRepository.saveAndFlush(c);
+                }
+            }
+        }
+
+
+        return "redirect:/cajero?id=" + id;
     }
 }
