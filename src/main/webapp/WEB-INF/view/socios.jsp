@@ -45,6 +45,7 @@ Autor: Juan Francisco Sánchez García
         <th>FECHA FIN</th>
         <th>DNI</th>
         <th>CUENTA BANCO</th>
+        <th>SALDO</th>
         <th>EMPRESA</th>
         <th>ESTADO</th>
         <th></th>
@@ -59,6 +60,7 @@ Autor: Juan Francisco Sánchez García
         <td><%= autorizado.getFechaFin() %></td>
         <td><%= autorizado.getDni() %></td>
         <td><%= autorizado.getCuentabancoByIdCuentaBanco().getIbanCuenta() %></td>
+        <td><%= autorizado.getCuentabancoByIdCuentaBanco().getSaldo() %></td>
         <td><%= autorizado.getEmpresaByIdEmpresa().getNombre() %></td>
         <td><%= autorizado.getTipoestadoautorizadoByEstadoAutorizado().getEstadoAutorizado() %></td>
         <td><a href="/empresa/editarSocio?id=<%= autorizado.getId() %>"> Editar</a></td>
