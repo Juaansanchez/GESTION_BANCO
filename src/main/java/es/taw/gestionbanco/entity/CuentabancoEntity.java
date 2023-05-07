@@ -31,6 +31,19 @@ public class CuentabancoEntity {
     @Basic
     @Column(name = "pais", nullable = false, length = 255)
     private String pais;
+
+    @Basic
+    @Column(name = "saldo", nullable = false)
+    private Integer saldo;
+
+    public Integer getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Integer saldo) {
+        this.saldo = saldo;
+    }
+
     @OneToMany(mappedBy = "cuentabancoByIdCuentaBanco")
     private List<AutorizadoEntity> autorizadosById;
     @ManyToOne

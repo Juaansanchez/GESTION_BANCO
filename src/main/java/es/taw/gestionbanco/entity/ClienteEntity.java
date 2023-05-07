@@ -22,6 +22,7 @@ public class ClienteEntity {
     @Basic
     @Column(name = "fechaInicio", nullable = false)
     private Date fechaInicio;
+
     @OneToMany(mappedBy = "clienteByIdCliente")
     private List<BeneficiarioEntity> beneficiariosById;
     @OneToMany(mappedBy = "clienteByIdCliente")
