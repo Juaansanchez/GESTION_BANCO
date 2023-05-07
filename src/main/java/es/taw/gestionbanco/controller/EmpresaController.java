@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class EmpresaController {
-
     @Autowired
-    protected EmpresaEntityRepository empresaEntityRepository;
+    EmpresaEntityRepository empresaEntityRepository;
 
-    @GetMapping("/adad")
+    @GetMapping("/")
     public String doAltaEmpresa (Model model){
         model.addAttribute("empresa",new EmpresaEntity());
         return "altaEmpresa";

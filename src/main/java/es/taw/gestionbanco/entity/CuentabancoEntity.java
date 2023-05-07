@@ -31,6 +31,9 @@ public class CuentabancoEntity {
     @Basic
     @Column(name = "pais", nullable = false, length = 255)
     private String pais;
+    @Basic
+    @Column(name = "saldo", nullable = false)
+    private Integer saldo;
     @OneToMany(mappedBy = "cuentabancoByIdCuentaBanco")
     private List<AutorizadoEntity> autorizadosById;
     @ManyToOne
@@ -97,6 +100,14 @@ public class CuentabancoEntity {
 
     public void setPais(String pais) {
         this.pais = pais;
+    }
+
+    public Integer getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Integer saldo) {
+        this.saldo = saldo;
     }
 
     @Override
