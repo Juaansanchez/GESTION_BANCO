@@ -37,21 +37,7 @@
     </tr>
     <tr>
         <th>Estado de cuenta:</th>
-        <%
-            if (cliente.getEstado().equals("activo")) {
-        %>
         <td><%=cliente.getEstado()%>
-        </td>
-        <%
-        } else {
-        %>
-        <td><%=cliente.getEstado()%>
-        </td>
-        <br/>
-        <td><a href="">Solicitar desbloqueo de cuenta</a></td>
-        <%
-            }
-        %>
     </tr>
     <tr>
         <th>Saldo de la cuenta/s:</th>
@@ -67,9 +53,11 @@
     <tr>
         <th>Acciones:</th>
         <td><a href="/cajero/perfil?id=<%=cliente.getId()%>">Perfil</a></td>
-        <br/>
+        <br>
         <td><a href="/cajero/operaciones?id=<%=cliente.getId()%>">Operaciones Bancarias</a></td>
-        <br/>
+        <br>
+        <td><a href="/cajero/registroOperaciones?id=<%=cliente.getId()%>">Registro de Operaciones Bancarias</a></td>
+        <br>
     </tr>
 </table>
 

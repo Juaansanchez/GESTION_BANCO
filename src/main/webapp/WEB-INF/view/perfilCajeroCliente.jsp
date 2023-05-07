@@ -16,7 +16,8 @@
 </head>
 <body>
 
-<h1>Perfil del cliente <%=cliente.getPersonaById().getNombre()%></h1>
+<h1>Perfil del cliente <%=cliente.getPersonaById().getNombre()%>
+</h1>
 
 <h2>Datos del cliente</h2>
 
@@ -38,6 +39,18 @@
     <label>Fecha nacimiento:</label>
     <input type="date" name="fechaNacimiento" value="<%=cliente.getPersonaById().getFechaNacimiento()%>">
     <br>
+    <%
+        if (!cliente.getEstado().equals("activo")) {
+    %>
+    <label>¿Quiere solicitar la reactivacion?</label>
+    <select id="reactivacion" name="reactivacion">
+        <option value="si">Sí</option>
+        <option value="no" selected>No</option>
+    </select>
+    <br>
+    <%
+        }
+    %>
     <input type="submit" value="Guardar cambios">
 </form>
 </body>

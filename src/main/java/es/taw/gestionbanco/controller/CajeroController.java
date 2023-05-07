@@ -1,12 +1,7 @@
 package es.taw.gestionbanco.controller;
 
-import es.taw.gestionbanco.dao.BeneficiarioEntityRepository;
-import es.taw.gestionbanco.dao.ClienteEntityRepository;
-import es.taw.gestionbanco.dao.CuentaBancoRepository;
-import es.taw.gestionbanco.dao.PersonaEntityRepository;
-import es.taw.gestionbanco.entity.ClienteEntity;
-import es.taw.gestionbanco.entity.CuentabancoEntity;
-import es.taw.gestionbanco.entity.PersonaEntity;
+import es.taw.gestionbanco.dao.*;
+import es.taw.gestionbanco.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +26,10 @@ public class CajeroController {
     PersonaEntityRepository personaEntityRepository;
     @Autowired
     BeneficiarioEntityRepository beneficiarioEntityRepository;
+    @Autowired
+    TransaccionEntityRepository transaccionEntityRepository;
+    @Autowired
+    PagoEntityRepository pagoEntityRepository;
 
     @GetMapping("")
     public String muestraSesion(@RequestParam("id") Integer idCliente, Model model) {
@@ -125,13 +124,29 @@ public class CajeroController {
         return "operacionesCajeroCliente";
     }
 
+    @GetMapping("/registroOperaciones")
+    public String registroOperaciones(@RequestParam("id") Integer idCliente, Model model) {
+
+        ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
+        model.addAttribute("cliente", cliente);
+
+        BeneficiarioEntity beneficiario = this.beneficiarioEntityRepository.findByIdCliente(idCliente);
+        List<PagoEntity> pagos = pagoEntityRepository.pagosPorIdBeneficiario(beneficiario.getIdBeneficiario());
+
+        model.addAttribute("pagos", pagos);
+
+
+        return "registroOperaciones";
+    }
+
     @PostMapping("/guardarCambiosCliente")
     public String modificaCambiosCliente(@RequestParam("id") Integer id, @RequestParam("dni") String dni,
                                          @RequestParam("nombre") String nombre, @RequestParam("segundoNombre") String segundoNombre,
                                          @RequestParam("apellido") String apellido, @RequestParam("segundoApellido") String segundoApellido,
-                                         @RequestParam("fechaNacimiento") Date fechaNacimiento) {
+                                         @RequestParam("fechaNacimiento") Date fechaNacimiento, @RequestParam("reactivacion") String reactivacion) {
 
         PersonaEntity persona = this.personaEntityRepository.findById(id).orElse(null);
+        ClienteEntity cliente = this.clienteEntityRepository.findById(id).orElse(null);
 
         persona.setNombre(nombre);
         persona.setSegundoNombre(segundoNombre);
@@ -139,6 +154,13 @@ public class CajeroController {
         persona.setSegundoApellido(segundoApellido);
         persona.setFechaNacimiento(fechaNacimiento);
 
+        if (reactivacion == "si") {
+            cliente.setEstado("pendienteDesbloqueo");
+        }
+
+        cliente.setPersonaById(persona);
+
+        this.clienteEntityRepository.save(cliente);
         this.personaEntityRepository.save(persona);
 
         return "redirect:/cajero?id=" + id;
@@ -194,7 +216,7 @@ public class CajeroController {
         for (CuentabancoEntity c : cuentasCliente) {
             if (c.getIbanCuenta() == cuentaBanco) {
                 c.setSaldo(c.getSaldo() - importe);
-                cuentaBancoRepository.saveAndFlush(c);
+                cuentaBancoRepository.save(c);
             }
         }
 
