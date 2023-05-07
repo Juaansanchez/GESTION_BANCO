@@ -3,11 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
-  Created by IntelliJ IDEA.
-  User: Juan
-  Date: 20/04/2023
-  Time: 13:59
-  To change this template use File | Settings | File Templates.
+Autor: Juan Francisco Sánchez García
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 

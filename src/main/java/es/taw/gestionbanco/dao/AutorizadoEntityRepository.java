@@ -11,4 +11,15 @@ public interface AutorizadoEntityRepository extends JpaRepository<AutorizadoEnti
 
     @Query("select a from AutorizadoEntity a where a.empresaByIdEmpresa.id = :idEmpresa")
     public List<AutorizadoEntity> buscarSociosPorIdEmpresa(@Param("idEmpresa") Integer idEmpresa);
+
+    @Query("select a from AutorizadoEntity a where a.dni like CONCAT('%', :texto, '%')")
+    public List<AutorizadoEntity> filtrarPorDNI(@Param("texto") String texto);
+
+    @Query("select a from AutorizadoEntity a where a.tipoestadoautorizadoByEstadoAutorizado.estadoAutorizado like CONCAT('%', :estado, '%')")
+    public List<AutorizadoEntity> filtrarPorEstado(@Param("estado") String estado);
+
+    @Query("select a from AutorizadoEntity a where a.empresaByIdEmpresa.nombre like CONCAT('%', :nombreEmpresa, '%')")
+    public List<AutorizadoEntity> filtrarPorNombreEmpresa(@Param("nombreEmpresa") String nombreEmpresa);
+
+
 }

@@ -1,10 +1,9 @@
 package es.taw.gestionbanco.controller;
 
+// Autor: Juan Francisco Sánchez García
+
 import es.taw.gestionbanco.dao.*;
-import es.taw.gestionbanco.entity.AutorizadoEntity;
-import es.taw.gestionbanco.entity.ClienteEntity;
-import es.taw.gestionbanco.entity.EmpresaEntity;
-import es.taw.gestionbanco.entity.SocioEntity;
+import es.taw.gestionbanco.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +32,18 @@ public class EmpresaController {
 
     @Autowired
     protected TipoestadoautorizadoEntityRepository tipoestadoautorizadoEntityRepository;
+
+    @Autowired
+    protected TransaccionEntityRepository transaccionEntityRepository;
+
+    @Autowired
+    protected PagoEntityRepository pagoEntityRepository;
+
+    @Autowired
+    protected CambiodivisaEntityRepository cambiodivisaEntityRepository;
+
+    @Autowired
+    protected BeneficiarioEntityRepository beneficiarioEntityRepository;
 
     @GetMapping("/")
     public String doAltaEmpresa (Model model, EmpresaEntity empresa){
@@ -69,11 +80,113 @@ public class EmpresaController {
         return "altaSocio";
     }
 
+    @GetMapping("/hacerTransaccion")
+    public String doHacerTransaccion(Model model){
+        model.addAttribute("transaccion", new TransaccionEntity());
+        return "nuevaTransaccion";
+    }
+
+    @PostMapping("/guardarTransaccion")
+    public String doGuardarTransaccion(@ModelAttribute("transaccion") TransaccionEntity transaccion, Model model){
+        this.transaccionEntityRepository.save(transaccion);
+        model.addAttribute("transaccionTipo", transaccion);
+        return "tipoTransaccion";
+    }
+
+    @GetMapping("/hacerPago")
+    public String doHacerPago(Model model){
+        model.addAttribute("pago", new PagoEntity());
+
+        List<BeneficiarioEntity> beneficiarios = this.beneficiarioEntityRepository.findAll();
+        model.addAttribute("beneficiarios", beneficiarios);
+
+        List<TransaccionEntity> transacciones = this.transaccionEntityRepository.findAll();
+        model.addAttribute("transacciones", transacciones);
+
+        return "nuevoPago";
+    }
+
+    @PostMapping("/guardarPago")
+    public String doGuardarPago(@ModelAttribute("pago") PagoEntity pago){
+        this.pagoEntityRepository.save(pago);
+        return "redirect:/empresa/";
+    }
+
+    @GetMapping("/hacerCambioDivisa")
+    public String doHacerCambioDivisa(Model model){
+        model.addAttribute("cambio", new CambiodivisaEntity());
+
+        List<TransaccionEntity> transacciones = this.transaccionEntityRepository.findAll();
+        model.addAttribute("transacciones", transacciones);
+
+        return "nuevoCambioDivisa";
+    }
+
+    @PostMapping("/guardarCambioDivisa")
+    public String doGuardarCambioDivisa(@ModelAttribute("cambio") CambiodivisaEntity cambio){
+        this.cambiodivisaEntityRepository.save(cambio);
+        return "redirect:/empresa/";
+    }
+
     @GetMapping("/listarSocios")
     public String doListarSocios(@RequestParam("id") Integer idEmpresa, Model model){
-        List<AutorizadoEntity> socios = this.autorizadoEntityRepository.buscarSociosPorIdEmpresa(idEmpresa);
-        model.addAttribute("autorizados", socios);
+            List<AutorizadoEntity> socios = this.autorizadoEntityRepository.buscarSociosPorIdEmpresa(idEmpresa);
+            model.addAttribute("autorizados", socios);
         return "socios";
+    }
+
+    @GetMapping("/filtrarSocios")
+    public String doFiltrarSocios (@RequestParam("texto") String texto, Model model){
+        List<AutorizadoEntity> socios = this.autorizadoEntityRepository.filtrarPorDNI(texto);
+        model.addAttribute("autorizados", socios);
+
+        return "socios";
+    }
+
+    @GetMapping("/filtrarSociosPorEstado")
+    public String doFiltrarSociosEstado(@RequestParam("estado") String estado, Model model){
+
+        List<AutorizadoEntity> socios = this.autorizadoEntityRepository.filtrarPorEstado(estado);
+        model.addAttribute("autorizados", socios);
+
+        return "socios";
+    }
+
+    @GetMapping("/filtrarSociosPorNombreEmpresa")
+    public String doFiltrarSociosNombreEmpresa(@RequestParam("nombreEmpresa") String nombreEmpresa, Model model){
+
+        List<AutorizadoEntity> socios = this.autorizadoEntityRepository.filtrarPorNombreEmpresa(nombreEmpresa);
+        model.addAttribute("autorizados", socios);
+
+        return "socios";
+    }
+
+    @GetMapping("/listarPagos")
+    public String doListarPagos(@RequestParam("id") Integer idCliente, Model model){
+        List<PagoEntity> pagos = this.pagoEntityRepository.buscarPagosPorIdCliente(idCliente);
+        model.addAttribute("pagos", pagos);
+        return "pagos";
+    }
+
+    @GetMapping("/filtrarPagosPorMonedas")
+    public String doFiltrarPagosMonedas(@RequestParam("moneda") String moneda, Model model){
+        List<PagoEntity> pagos = this.pagoEntityRepository.filtrarPorMoneda(moneda);
+        model.addAttribute("pagos", pagos);
+        return "pagos";
+    }
+
+    @GetMapping("/filtrarPagosPorNombre")
+    public String doFiltrarPagosPorNombre(@RequestParam("texto") String texto, Model model){
+        List<PagoEntity> pagos = this.pagoEntityRepository.filtrarPorNombre(texto);
+        model.addAttribute("pagos", pagos);
+        return "pagos";
+    }
+
+    @GetMapping("/filtrarPagosPorApellido")
+    public String doFiltrarPagosPorApellido(@RequestParam("texto") String texto, Model model){
+        List<PagoEntity> pagos = this.pagoEntityRepository.filtrarPorApellido(texto);
+        model.addAttribute("pagos", pagos);
+        return "pagos";
     }
 
     @GetMapping("/editarEmpresa")

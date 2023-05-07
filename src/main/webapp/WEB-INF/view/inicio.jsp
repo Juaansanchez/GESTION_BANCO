@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%--
+Autor: Juan Francisco Sánchez García
+--%>
 <html>
 <head>
     <title>Inicio</title>
