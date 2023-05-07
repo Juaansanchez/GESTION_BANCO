@@ -1,0 +1,9 @@
+// Autor: Ángel Joaquín Rodríguez Rodríguez
+
+package es.taw.gestionbanco.dao;
+
+import es.taw.gestionbanco.entity.ClienteEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ClienteEntityRepository extends JpaRepository<ClienteEntity, Integer> {
+}
