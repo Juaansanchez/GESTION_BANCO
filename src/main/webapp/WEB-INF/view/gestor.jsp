@@ -22,29 +22,34 @@ Nombre: Marcos Fernández Aranda
 %>
 <h2>Empresas</h2>
 
+<a href="/empresa/">Dar de alta a una empresa</a>
 
 
 <%
-    for (EmpresaEntity empresa: listaEmpresas) {
+    for (EmpresaEntity empresa : listaEmpresas) {
 %>
-<table border = "1">
-<tr>
-    <th>Nombre</th>
-    <th>ID</th>
-    <th></th>
-    <th></th>
-    <th></th>
-</tr>
-<tr>
-    <td><%= empresa.getNombre() %></td>
-    <td><%= empresa.getId() %></td>
-    <td><a href="/gestor/editar?id=<%= empresa.getClienteById().getId() %>"> Editar cuenta cliente de la empresa</a></td>
-    <td><a href=""> Editar Empresa</a></td>
-    <td><a href=""> Listar Socios</a></td>
+<table border="1">
+    <tr>
+        <th>Nombre</th>
+        <th>ID</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr>
+        <td><%= empresa.getNombre() %>
+        </td>
+        <td><%= empresa.getId() %>
+        </td>
+        <td><a href="/gestor/editar?id=<%= empresa.getClienteById().getId() %>"> Editar cuenta cliente de la empresa</a>
+        </td>
+        <td><a href="/empresa/editarEmpresa?id=<%=empresa.getId()%>"> Editar Empresa</a></td>
+        <td><a href="/empresa/listarSocios?id=<%=empresa.getId()%>"> Listar Socios</a></td>
 
-</tr>
+    </tr>
 
-</table></br>
+</table>
+</br>
 
 <%
     }
@@ -63,11 +68,11 @@ Nombre: Marcos Fernández Aranda
 </form:form>
 
 <%
-    for (ClienteEntity cliente: listaClientes) {
+    for (ClienteEntity cliente : listaClientes) {
 %>
 
 
-<table border = "1">
+<table border="1">
     <tr>
         <th>ID</th>
         <th>DNI</th>
@@ -76,16 +81,21 @@ Nombre: Marcos Fernández Aranda
 
     </tr>
     <tr>
-        <td><%= cliente.getId() %></td>
-        <td><%= cliente.getNumeroIdentificacion() %></td>
-        <td><%= cliente.getFechaInicio() %></td>
-        <td><%= cliente.getEstado() %></td>
+        <td><%= cliente.getId() %>
+        </td>
+        <td><%= cliente.getNumeroIdentificacion() %>
+        </td>
+        <td><%= cliente.getFechaInicio() %>
+        </td>
+        <td><%= cliente.getEstado() %>
+        </td>
 
         <td><a href="/gestor/editar?id=<%= cliente.getId() %>"> Editar</a></td>
 
     </tr>
 
-</table></br>
+</table>
+</br>
 <%
     }
 %>

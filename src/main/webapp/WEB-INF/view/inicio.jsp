@@ -13,10 +13,10 @@ Autor: Juan Francisco Sánchez García
         <td><strong><a href="/signup/">CLIENTE</a></strong></td>
     </tr>
     <tr>
-        <td><strong><a href="/empresa/">EMPRESA</a></strong></td>
+        <td><strong><a href="/gestor/">EMPRESA</a></strong></td>
     </tr>
     <tr>
-        <td><strong><a href="">GESTOR</a></strong></td>
+        <td><strong><a href="/gestor/">GESTOR</a></strong></td>
     </tr>
     <tr>
         <td><strong><a href="/asistente/chats?id=1">ASISTENTE</a></strong></td>

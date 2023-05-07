@@ -99,7 +99,7 @@ public class EmpresaController {
     @PostMapping("/guardarPago")
     public String doGuardarPago(@ModelAttribute("pago") PagoEntity pago) {
         this.pagoEntityRepository.save(pago);
-        return "redirect:/empresa/";
+        return "redirect:/gestor/";
     }
 
     @GetMapping("/hacerCambioDivisa")
@@ -115,7 +115,7 @@ public class EmpresaController {
     @PostMapping("/guardarCambioDivisa")
     public String doGuardarCambioDivisa(@ModelAttribute("cambio") CambiodivisaEntity cambio) {
         this.cambiodivisaEntityRepository.save(cambio);
-        return "redirect:/empresa/";
+        return "redirect:/gestor/";
     }
 
     @GetMapping("/listarSocios")
@@ -208,13 +208,13 @@ public class EmpresaController {
     @PostMapping("/guardar")
     public String doGuardar(@ModelAttribute("empresa") EmpresaEntity empresa) {
         this.empresaEntityRepository.save(empresa);
-        return "redirect:/empresa/";
+        return "redirect:/gestor/";
     }
 
     @PostMapping("/guardarAutorizado")
     public String doGuardarAutorizado(@ModelAttribute("autorizado") AutorizadoEntity autorizado) {
         this.autorizadoEntityRepository.save(autorizado);
-        return "redirect:/empresa/";
+        return "redirect:/gestor/";
     }
 
 }
