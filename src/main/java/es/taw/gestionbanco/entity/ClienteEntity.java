@@ -35,8 +35,6 @@ public class ClienteEntity {
     private List<DireccionEntity> direccionsById;
     @OneToOne(mappedBy = "clienteById")
     private EmpresaEntity empresaById;
-    @OneToMany(mappedBy = "clienteByEmisor")
-    private List<MensajeEntity> mensajesById;
 
     public Integer getId() {
         return id;
@@ -129,13 +127,5 @@ public class ClienteEntity {
 
     public void setEmpresaById(EmpresaEntity empresaById) {
         this.empresaById = empresaById;
-    }
-
-    public List<MensajeEntity> getMensajesById() {
-        return mensajesById;
-    }
-
-    public void setMensajesById(List<MensajeEntity> mensajesById) {
-        this.mensajesById = mensajesById;
     }
 }

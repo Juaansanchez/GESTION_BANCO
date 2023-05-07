@@ -1,3 +1,5 @@
+// Autor: Ángel Joaquín Rodríguez Rodríguez
+
 package es.taw.gestionbanco.dao;
 
 import es.taw.gestionbanco.entity.ClienteEntity;

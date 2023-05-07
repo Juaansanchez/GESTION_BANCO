@@ -30,8 +30,8 @@ public class AsistenteEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AsistenteEntity that = (AsistenteEntity) o;
-        return Objects.equals(idAsistente, that.idAsistente);
+        AsistenteEntity asistente = (AsistenteEntity) o;
+        return Objects.equals(idAsistente, asistente.idAsistente);
     }
 
     @Override

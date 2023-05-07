@@ -3,7 +3,7 @@ package es.taw.gestionbanco.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -22,7 +22,7 @@ public class TransaccionEntity {
     @OneToOne(mappedBy = "transaccionByIdTransaccion")
     private CambiodivisaEntity cambiodivisaById;
     @OneToMany(mappedBy = "transaccionByIdTransaccion")
-    private List<PagoEntity> pagosById;
+    private Collection<PagoEntity> pagosById;
 
     public Integer getId() {
         return id;
@@ -69,11 +69,11 @@ public class TransaccionEntity {
         this.cambiodivisaById = cambiodivisaById;
     }
 
-    public List<PagoEntity> getPagosById() {
+    public Collection<PagoEntity> getPagosById() {
         return pagosById;
     }
 
-    public void setPagosById(List<PagoEntity> pagosById) {
+    public void setPagosById(Collection<PagoEntity> pagosById) {
         this.pagosById = pagosById;
     }
 }
