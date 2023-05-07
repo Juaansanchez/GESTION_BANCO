@@ -3,7 +3,7 @@
 <%@ page import="es.taw.gestionbanco.entity.CuentabancoEntity" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
-  User: alvar
+  User: Álvaro Alemán Rando
   Date: 24/04/2023
   Time: 17:02
   To change this template use File | Settings | File Templates.

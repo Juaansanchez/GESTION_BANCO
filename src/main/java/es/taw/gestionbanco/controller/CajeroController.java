@@ -1,3 +1,4 @@
+//Autor: Álvaro Alemán Rando
 package es.taw.gestionbanco.controller;
 
 import es.taw.gestionbanco.dao.*;
@@ -242,7 +243,7 @@ public class CajeroController {
                 this.cuentabancoEntityRepository.save(c);
             }
         }
-        
+
         return "redirect:/cajero?id=" + id;
     }
 }

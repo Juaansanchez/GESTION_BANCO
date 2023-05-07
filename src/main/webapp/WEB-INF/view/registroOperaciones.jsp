@@ -2,7 +2,7 @@
 <%@ page import="es.taw.gestionbanco.entity.PagoEntity" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
-  User: alvar
+  User: Álvaro Alemán Rando
   Date: 07/05/2023
   Time: 17:57
   To change this template use File | Settings | File Templates.

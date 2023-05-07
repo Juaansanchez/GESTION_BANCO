@@ -1,6 +1,6 @@
 <%@ page import="es.taw.gestionbanco.entity.ClienteEntity" %><%--
   Created by IntelliJ IDEA.
-  User: alvar
+  User: Álvaro Alemán Rando
   Date: 24/04/2023
   Time: 17:45
   To change this template use File | Settings | File Templates.
