@@ -225,6 +225,5 @@ public class EmpresaController {
         this.autorizadoEntityRepository.save(autorizado);
         return "redirect:/empresa/";
     }
-
-
+ */
 }

@@ -81,6 +81,23 @@ public class ClienteEntity {
         return Objects.hash(id, numeroIdentificacion, estado, fechaInicio);
     }
 
+    @Override
+    public String toString() {
+        return "ClienteEntity{" +
+                "id=" + id +
+                ", numeroIdentificacion='" + numeroIdentificacion + '\'' +
+                ", estado='" + estado + '\'' +
+                ", fechaInicio=" + fechaInicio +
+                ", beneficiariosById=" + beneficiariosById +
+                ", chatsById=" + chatsById +
+                ", personaById=" + personaById +
+                ", cuentabancosById=" + cuentabancosById +
+                ", direccionsById=" + direccionsById +
+                ", empresaById=" + empresaById +
+                ", mensajesById=" + mensajesById +
+                '}';
+    }
+
     public List<BeneficiarioEntity> getBeneficiariosById() {
         return beneficiariosById;
     }

@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface PersonaEntityRepository extends JpaRepository<PersonaEntity, Integer> {
 
+	PersonaEntity findByDni(String dni);
+
     @Query("SELECT p.id FROM PersonaEntity p")
     List<Integer> buscarIdPersonas();
 }

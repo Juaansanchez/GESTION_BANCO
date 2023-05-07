@@ -13,6 +13,10 @@ Autor: Juan Francisco Sánchez García
     <title>Alta de Empresa</title>
 </head>
 <body>
+
+<%--
+<jsp:forward page="altaCliente.jsp"></jsp:forward>
+--%>
 <h1>Datos de la empresa:</h1>
 
 <form:form action="/empresa/guardar" modelAttribute="empresa" method="post">
