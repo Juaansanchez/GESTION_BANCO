@@ -19,8 +19,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/asistente")
 public class AsistenteController {
-    //@Autowired
-    // protected ChatEntityRepository chatEntityRepository;
+    @Autowired
+    protected ChatEntityRepository chatEntityRepository;
 
     @Autowired
     protected AsistenteEntityRepository asistenteEntityRepository;

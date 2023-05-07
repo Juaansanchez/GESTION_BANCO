@@ -19,7 +19,7 @@ Autor: Juan Francisco Sánchez García
         <td><strong><a href="">GESTOR</a></strong></td>
     </tr>
     <tr>
-        <td><strong><a href="">ASISTENTE</a></strong></td>
+        <td><strong><a href="/asistente/chats?id=1">ASISTENTE</a></strong></td>
     </tr>
     <tr>
         <td><strong><a href="/cajero?id=1">CAJERO</a></strong></td>
