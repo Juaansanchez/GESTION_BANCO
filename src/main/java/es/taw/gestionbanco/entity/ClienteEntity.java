@@ -81,6 +81,7 @@ public class ClienteEntity {
         return Objects.hash(id, numeroIdentificacion, estado, fechaInicio);
     }
 
+    /*
     @Override
     public String toString() {
         return "ClienteEntity{" +
@@ -97,6 +98,7 @@ public class ClienteEntity {
                 ", mensajesById=" + mensajesById +
                 '}';
     }
+    */
 
     public List<BeneficiarioEntity> getBeneficiariosById() {
         return beneficiariosById;

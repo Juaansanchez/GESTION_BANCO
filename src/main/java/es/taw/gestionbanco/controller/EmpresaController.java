@@ -9,44 +9,35 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
 
 @Controller
 @RequestMapping("/empresa")
 public class EmpresaController {
     @Autowired
-    EmpresaEntityRepository empresaEntityRepository;
-
-    @Autowired
     protected ClienteEntityRepository clienteEntityRepository;
-
     @Autowired
     protected AutorizadoEntityRepository autorizadoEntityRepository;
-
     @Autowired
     protected PersonaEntityRepository personaEntityRepository;
-
     @Autowired
     protected CuentabancoEntityRepository cuentabancoEntityRepository;
-
     @Autowired
     protected TipoestadoautorizadoEntityRepository tipoestadoautorizadoEntityRepository;
-
     @Autowired
     protected TransaccionEntityRepository transaccionEntityRepository;
-
     @Autowired
     protected PagoEntityRepository pagoEntityRepository;
-
     @Autowired
     protected CambiodivisaEntityRepository cambiodivisaEntityRepository;
-
     @Autowired
     protected BeneficiarioEntityRepository beneficiarioEntityRepository;
+    @Autowired
+    EmpresaEntityRepository empresaEntityRepository;
 
     @GetMapping("/")
-    public String doAltaEmpresa (Model model, EmpresaEntity empresa){
-        model.addAttribute("empresa",empresa);
+    public String doAltaEmpresa(Model model, EmpresaEntity empresa) {
+        model.addAttribute("empresa", empresa);
 
         List<Integer> idClientes = this.clienteEntityRepository.buscarIdClientes();
 
@@ -56,7 +47,7 @@ public class EmpresaController {
     }
 
     @GetMapping("/altaSocio")
-    public String doAltaSocio(Model model){
+    public String doAltaSocio(Model model) {
 
         model.addAttribute("autorizado", new AutorizadoEntity());
 
@@ -80,20 +71,20 @@ public class EmpresaController {
     }
 
     @GetMapping("/hacerTransaccion")
-    public String doHacerTransaccion(Model model){
+    public String doHacerTransaccion(Model model) {
         model.addAttribute("transaccion", new TransaccionEntity());
         return "nuevaTransaccion";
     }
 
     @PostMapping("/guardarTransaccion")
-    public String doGuardarTransaccion(@ModelAttribute("transaccion") TransaccionEntity transaccion, Model model){
+    public String doGuardarTransaccion(@ModelAttribute("transaccion") TransaccionEntity transaccion, Model model) {
         this.transaccionEntityRepository.save(transaccion);
         model.addAttribute("transaccionTipo", transaccion);
         return "tipoTransaccion";
     }
 
     @GetMapping("/hacerPago")
-    public String doHacerPago(Model model){
+    public String doHacerPago(Model model) {
         model.addAttribute("pago", new PagoEntity());
 
         List<BeneficiarioEntity> beneficiarios = this.beneficiarioEntityRepository.findAll();
@@ -106,13 +97,13 @@ public class EmpresaController {
     }
 
     @PostMapping("/guardarPago")
-    public String doGuardarPago(@ModelAttribute("pago") PagoEntity pago){
+    public String doGuardarPago(@ModelAttribute("pago") PagoEntity pago) {
         this.pagoEntityRepository.save(pago);
         return "redirect:/empresa/";
     }
 
     @GetMapping("/hacerCambioDivisa")
-    public String doHacerCambioDivisa(Model model){
+    public String doHacerCambioDivisa(Model model) {
         model.addAttribute("cambio", new CambiodivisaEntity());
 
         List<TransaccionEntity> transacciones = this.transaccionEntityRepository.findAll();
@@ -122,20 +113,20 @@ public class EmpresaController {
     }
 
     @PostMapping("/guardarCambioDivisa")
-    public String doGuardarCambioDivisa(@ModelAttribute("cambio") CambiodivisaEntity cambio){
+    public String doGuardarCambioDivisa(@ModelAttribute("cambio") CambiodivisaEntity cambio) {
         this.cambiodivisaEntityRepository.save(cambio);
         return "redirect:/empresa/";
     }
 
     @GetMapping("/listarSocios")
-    public String doListarSocios(@RequestParam("id") Integer idEmpresa, Model model){
-            List<AutorizadoEntity> socios = this.autorizadoEntityRepository.buscarSociosPorIdEmpresa(idEmpresa);
-            model.addAttribute("autorizados", socios);
+    public String doListarSocios(@RequestParam("id") Integer idEmpresa, Model model) {
+        List<AutorizadoEntity> socios = this.autorizadoEntityRepository.buscarSociosPorIdEmpresa(idEmpresa);
+        model.addAttribute("autorizados", socios);
         return "socios";
     }
 
     @GetMapping("/filtrarSocios")
-    public String doFiltrarSocios (@RequestParam("texto") String texto, Model model){
+    public String doFiltrarSocios(@RequestParam("texto") String texto, Model model) {
         List<AutorizadoEntity> socios = this.autorizadoEntityRepository.filtrarPorDNI(texto);
         model.addAttribute("autorizados", socios);
 
@@ -143,7 +134,7 @@ public class EmpresaController {
     }
 
     @GetMapping("/filtrarSociosPorEstado")
-    public String doFiltrarSociosEstado(@RequestParam("estado") String estado, Model model){
+    public String doFiltrarSociosEstado(@RequestParam("estado") String estado, Model model) {
 
         List<AutorizadoEntity> socios = this.autorizadoEntityRepository.filtrarPorEstado(estado);
         model.addAttribute("autorizados", socios);
@@ -152,7 +143,7 @@ public class EmpresaController {
     }
 
     @GetMapping("/filtrarSociosPorNombreEmpresa")
-    public String doFiltrarSociosNombreEmpresa(@RequestParam("nombreEmpresa") String nombreEmpresa, Model model){
+    public String doFiltrarSociosNombreEmpresa(@RequestParam("nombreEmpresa") String nombreEmpresa, Model model) {
 
         List<AutorizadoEntity> socios = this.autorizadoEntityRepository.filtrarPorNombreEmpresa(nombreEmpresa);
         model.addAttribute("autorizados", socios);
@@ -161,42 +152,42 @@ public class EmpresaController {
     }
 
     @GetMapping("/listarPagos")
-    public String doListarPagos(@RequestParam("id") Integer idCliente, Model model){
+    public String doListarPagos(@RequestParam("id") Integer idCliente, Model model) {
         List<PagoEntity> pagos = this.pagoEntityRepository.buscarPagosPorIdCliente(idCliente);
         model.addAttribute("pagos", pagos);
         return "pagos";
     }
 
     @GetMapping("/filtrarPagosPorMonedas")
-    public String doFiltrarPagosMonedas(@RequestParam("moneda") String moneda, Model model){
+    public String doFiltrarPagosMonedas(@RequestParam("moneda") String moneda, Model model) {
         List<PagoEntity> pagos = this.pagoEntityRepository.filtrarPorMoneda(moneda);
         model.addAttribute("pagos", pagos);
         return "pagos";
     }
 
     @GetMapping("/filtrarPagosPorNombre")
-    public String doFiltrarPagosPorNombre(@RequestParam("texto") String texto, Model model){
+    public String doFiltrarPagosPorNombre(@RequestParam("texto") String texto, Model model) {
         List<PagoEntity> pagos = this.pagoEntityRepository.filtrarPorNombre(texto);
         model.addAttribute("pagos", pagos);
         return "pagos";
     }
 
     @GetMapping("/filtrarPagosPorApellido")
-    public String doFiltrarPagosPorApellido(@RequestParam("texto") String texto, Model model){
+    public String doFiltrarPagosPorApellido(@RequestParam("texto") String texto, Model model) {
         List<PagoEntity> pagos = this.pagoEntityRepository.filtrarPorApellido(texto);
         model.addAttribute("pagos", pagos);
         return "pagos";
     }
 
     @GetMapping("/editarEmpresa")
-    public String doEditarEmpresa(@RequestParam("id") Integer idEmpresa, Model model){
+    public String doEditarEmpresa(@RequestParam("id") Integer idEmpresa, Model model) {
         EmpresaEntity empresa = this.empresaEntityRepository.findById(idEmpresa).orElse(null);
         model.addAttribute("empresa", empresa);
         return "editarEmpresa";
     }
 
     @GetMapping("/editarSocio")
-    public String doEditarAutorizado(@RequestParam("id") Integer idAutorizado, Model model){
+    public String doEditarAutorizado(@RequestParam("id") Integer idAutorizado, Model model) {
         AutorizadoEntity autorizado = this.autorizadoEntityRepository.findById(idAutorizado).orElse(null);
         model.addAttribute("autorizado", autorizado);
 
@@ -215,15 +206,15 @@ public class EmpresaController {
     }
 
     @PostMapping("/guardar")
-    public String doGuardar (@ModelAttribute("empresa") EmpresaEntity empresa){
+    public String doGuardar(@ModelAttribute("empresa") EmpresaEntity empresa) {
         this.empresaEntityRepository.save(empresa);
         return "redirect:/empresa/";
     }
 
     @PostMapping("/guardarAutorizado")
-    public String doGuardarAutorizado (@ModelAttribute("autorizado") AutorizadoEntity autorizado){
+    public String doGuardarAutorizado(@ModelAttribute("autorizado") AutorizadoEntity autorizado) {
         this.autorizadoEntityRepository.save(autorizado);
         return "redirect:/empresa/";
     }
- */
+
 }

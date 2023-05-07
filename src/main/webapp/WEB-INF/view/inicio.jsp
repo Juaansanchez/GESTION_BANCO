@@ -10,7 +10,7 @@ Autor: Juan Francisco Sánchez García
 <h1>Elige un rol:</h1>
 <table>
     <tr>
-        <td><strong><a href="">CLIENTE</a></strong></td>
+        <td><strong><a href="/signup/">CLIENTE</a></strong></td>
     </tr>
     <tr>
         <td><strong><a href="/empresa/">EMPRESA</a></strong></td>

@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/signup")
 public class ClientSignUpController {
 
     @Autowired
@@ -29,8 +32,7 @@ public class ClientSignUpController {
     public String initializeDatosCliente(Model model) {
         //System.out.println("HE LLEGADO A ESTE METODO");
 
-        if(datosClientes == null)
-        {
+        if (datosClientes == null) {
             datosClientes = new DatosClientes();
             datosClientes.setPersona(new PersonaEntity());
             datosClientes.setDireccion(new DireccionEntity());
@@ -39,31 +41,31 @@ public class ClientSignUpController {
         System.out.println("DATOS PARA EL FORM: " + datosClientes.toString());
         return "/altaCliente";
     }
-/*
-    @GetMapping("/limpiar")
-    public String limpiarDatosCliente(Model model) {
-        datosClientes = null;
-        return  "/altaCliente";
-    }
-*/
+
+    /*
+        @GetMapping("/limpiar")
+        public String limpiarDatosCliente(Model model) {
+            datosClientes = null;
+            return  "/altaCliente";
+        }
+    */
     @PostMapping("/procesarRegistro")
     public String doSignUp(@ModelAttribute("datosClientes") DatosClientes datosClientes, Model model, BindingResult result, RedirectAttributes redirectAttributes) {
         String urlTo;
         System.out.println("===================HE SIDO LLAMADO, SOY SIGNUP====================");
 
-        if(datosClientes.getPersona() == null || datosClientes.getDireccion() == null){
+        if (datosClientes.getPersona() == null || datosClientes.getDireccion() == null) {
             this.datosClientes = datosClientes;
             return "PantallaErrorRegistro";
         }
         DatosClientesValidator validator = new DatosClientesValidator(new PersonaEntityValidator(), new DireccionEntityValidator());
         validator.validate(datosClientes, result);
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             //System.out.println("ERRORES: " + result.toString());
             model.addAttribute("errores", result.getAllErrors());
             this.datosClientes = datosClientes;
             return "PantallaErrorRegistro";
-        }
-        else{
+        } else {
             System.out.println("PERSONA A REGISRAR: " + datosClientes.toString());
             urlTo = cliRegService.newClient(datosClientes);
             redirectAttributes.addFlashAttribute("exito", "El cliente se ha registrado correctamente.");
