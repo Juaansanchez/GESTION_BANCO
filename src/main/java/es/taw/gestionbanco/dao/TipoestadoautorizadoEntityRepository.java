@@ -9,5 +9,5 @@ import java.util.List;
 public interface TipoestadoautorizadoEntityRepository extends JpaRepository<TipoestadoautorizadoEntity, Integer> {
 
     @Query("SELECT estado.id FROM TipoestadoautorizadoEntity estado")
-    public List<Integer> buscarIdTipoEstadoAutorizado();
+    List<Integer> buscarIdTipoEstadoAutorizado();
 }

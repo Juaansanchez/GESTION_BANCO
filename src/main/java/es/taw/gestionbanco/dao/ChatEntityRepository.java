@@ -11,26 +11,26 @@ import java.util.List;
 
 public interface ChatEntityRepository extends JpaRepository<ChatEntity, Integer> {
     @Query("select c from ChatEntity c where c.asistenteByIdEmpleado.idAsistente = :id")
-    public List<ChatEntity> buscarDeAsistente(@Param("id") Integer idAsistente);
+    List<ChatEntity> buscarDeAsistente(@Param("id") Integer idAsistente);
 
     @Query("select c from ChatEntity c where c.asistenteByIdEmpleado.idAsistente = :id and c.estado = :estado")
-    public List<ChatEntity> buscarDeAsistentePorEstado(
+    List<ChatEntity> buscarDeAsistentePorEstado(
             @Param("id") Integer idAsistente,
             @Param("estado") Byte estado);
 
     @Query("select c from ChatEntity c where c.asistenteByIdEmpleado.idAsistente = :idAsistente and " +
             "c.clienteByIdCliente.id = :idCliente")
-    public List<ChatEntity> buscarDeAsistentePorCliente(
+    List<ChatEntity> buscarDeAsistentePorCliente(
             @Param("idAsistente") Integer idAsistente,
             @Param("idCliente") Integer idCliente);
 
     @Query("select c from ChatEntity c where c.asistenteByIdEmpleado.idAsistente = :idAsistente and " +
             "c.clienteByIdCliente.id = :idCliente and c.estado = :estado")
-    public List<ChatEntity> buscarDeAsistentePorClienteYEstado(
+    List<ChatEntity> buscarDeAsistentePorClienteYEstado(
             @Param("idAsistente") Integer idAsistente,
             @Param("idCliente") Integer idCliente,
             @Param("estado") Byte estadoCliente);
 
     @Query("select c from ChatEntity c where c.clienteByIdCliente.id = :id")
-    public List<ChatEntity> buscarDeCliente(@Param("id") Integer idCliente);
+    List<ChatEntity> buscarDeCliente(@Param("id") Integer idCliente);
 }

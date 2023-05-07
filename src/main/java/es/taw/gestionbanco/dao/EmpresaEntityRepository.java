@@ -9,5 +9,5 @@ import java.util.List;
 public interface EmpresaEntityRepository extends JpaRepository<EmpresaEntity, Integer> {
 
     @Query("SELECT empresa.id FROM EmpresaEntity empresa")
-    public List<Integer> buscarIdEmpresas();
+    List<Integer> buscarIdEmpresas();
 }
