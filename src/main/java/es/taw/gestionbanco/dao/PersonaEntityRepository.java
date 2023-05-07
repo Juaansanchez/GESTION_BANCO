@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface PersonaEntityRepository extends JpaRepository<PersonaEntity, Integer> {
-
-
+    
 }
