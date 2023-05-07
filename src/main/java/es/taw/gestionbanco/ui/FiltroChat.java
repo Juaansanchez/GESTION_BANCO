@@ -8,7 +8,8 @@ public class FiltroChat {
     private Integer idAsistente;
 
     public FiltroChat() {
-        idCliente = estadoChat = idAsistente = null;
+        idCliente = idAsistente = null;
+        estadoChat = -1;
     }
     public Integer getIdCliente() {
         return idCliente;
