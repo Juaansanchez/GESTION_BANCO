@@ -172,30 +172,25 @@ public class CajeroController {
 
         List<CuentabancoEntity> todasLasCuentas = cuentabancoEntityRepository.findAll();
         List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
-        List<CuentabancoEntity> cuentasBeneficiario = new ArrayList<>();
+        CuentabancoEntity cuentaBeneficiario = cuentabancoEntityRepository.cuentaPorIBAN(cuentaDestino);
 
         for (CuentabancoEntity c : todasLasCuentas) {
             if (c.getClienteByIdCliente().getId() == id) {
                 cuentasCliente.add(c);
             }
-            if (c.getIbanCuenta() == cuentaDestino) {
-                cuentasBeneficiario.add(c);
-            }
         }
 
         for (CuentabancoEntity c : cuentasCliente) {
-            if (c.getIbanCuenta() == cuentaBanco) {
-                c.setSaldo(c.getSaldo() - importe);
-                cuentabancoEntityRepository.saveAndFlush(c);
-            }
+            c.setSaldo(c.getSaldo() - importe);
+            this.cuentabancoEntityRepository.save(c);
         }
+        
+        System.out.println("----------------------------------");
+        cuentaBeneficiario.setSaldo(cuentaBeneficiario.getSaldo() + importe);
+        System.out.println(cuentaBeneficiario.getSaldo());
+        System.out.println("----------------------------------");
+        this.cuentabancoEntityRepository.save(cuentaBeneficiario);
 
-        for (CuentabancoEntity c : cuentasBeneficiario) {
-            if (c.getIbanCuenta() == cuentaDestino) {
-                c.setSaldo(c.getSaldo() + importe);
-                cuentabancoEntityRepository.saveAndFlush(c);
-            }
-        }
 
         return "redirect:/cajero?id=" + id;
     }
@@ -204,7 +199,7 @@ public class CajeroController {
     @PostMapping("/retirarDinero")
     public String retiraDinero(@RequestParam("id") Integer id, @RequestParam("cuentaBanco") String cuentaBanco,
                                @RequestParam("importe") Integer importe) {
-        /*
+
         List<CuentabancoEntity> todasLasCuentas = this.cuentabancoEntityRepository.findAll();
         List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
 
@@ -215,18 +210,9 @@ public class CajeroController {
         }
 
         for (CuentabancoEntity c : cuentasCliente) {
-            if (c.getIbanCuenta() == cuentaBanco) {
-                c.setSaldo(c.getSaldo() - importe);
-                this.cuentabancoEntityRepository.actualizaSaldo();
-            }
-
+            c.setSaldo(c.getSaldo() - importe);
+            this.cuentabancoEntityRepository.save(c);
         }
-        */
-        CuentabancoEntity cuentaCliente = cuentabancoEntityRepository.encuentraCuentaPorIBAN(cuentaBanco);
-
-        int salarioActualizado = cuentaCliente.getSaldo() - importe;
-
-        cuentabancoEntityRepository.actualizaSaldo(salarioActualizado, cuentaBanco, id);
 
 
         return "redirect:/cajero?id=" + id;
