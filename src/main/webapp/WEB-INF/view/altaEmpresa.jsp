@@ -12,12 +12,15 @@
     <title>Alta de Empresa</title>
 </head>
 <body>
+
+<%--
+<jsp:forward page="altaCliente.jsp"></jsp:forward>
+--%>
 <h1>Datos de la empresa:</h1>
 
-<form:form action="/guardar" modelAttribute="empresa" method="post">
+<form:form action="/guardar" modelAttribute="persona" method="post">
     Id (Cliente): <form:input path="id"></form:input>
     Nombre: <form:input path="nombre" size="80" maxlength="80"></form:input><br/>
-    fechaCierre: <form:input path="fechaCierre" size="50" maxlength="50"></form:input>
     <form:button>Guardar</form:button>
 </form:form>
 

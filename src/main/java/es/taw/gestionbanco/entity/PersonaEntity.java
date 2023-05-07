@@ -106,6 +106,19 @@ public class PersonaEntity {
         return Objects.hash(id, dni, nombre, segundoNombre, apellido, segundoApellido, fechaNacimiento);
     }
 
+    @Override
+    public String toString() {
+        return "PersonaEntity{" +
+                "id=" + id +
+                ", dni='" + dni + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", segundoNombre='" + segundoNombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", segundoApellido='" + segundoApellido + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                '}';
+    }
+
     public AutorizadoEntity getAutorizadoById() {
         return autorizadoById;
     }

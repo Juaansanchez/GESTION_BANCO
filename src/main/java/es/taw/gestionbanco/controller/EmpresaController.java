@@ -14,7 +14,7 @@ public class EmpresaController {
 
     @Autowired
     protected EmpresaEntityRepository empresaEntityRepository;
-
+/*
     @GetMapping("/")
     public String doAltaEmpresa (Model model){
         model.addAttribute("empresa",new EmpresaEntity());
@@ -26,6 +26,5 @@ public class EmpresaController {
         this.empresaEntityRepository.save(empresa);
         return "redirect:/";
     }
-
-
+ */
 }

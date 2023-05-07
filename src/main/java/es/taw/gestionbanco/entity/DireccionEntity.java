@@ -135,6 +135,22 @@ public class DireccionEntity {
         return Objects.hash(id, tipo, calle, numero, plantaPuertaOficina, ciudad, region, codigoPostal, pais, valida);
     }
 
+    @Override
+    public String toString() {
+        return "DireccionEntity{" +
+                "id=" + id +
+                ", tipo='" + tipo + '\'' +
+                ", calle='" + calle + '\'' +
+                ", numero=" + numero +
+                ", plantaPuertaOficina='" + plantaPuertaOficina + '\'' +
+                ", ciudad='" + ciudad + '\'' +
+                ", region='" + region + '\'' +
+                ", codigoPostal='" + codigoPostal + '\'' +
+                ", pais='" + pais + '\'' +
+                ", valida=" + valida +
+                '}';
+    }
+
     public ClienteEntity getClienteByIdCliente() {
         return clienteByIdCliente;
     }
