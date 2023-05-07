@@ -21,7 +21,7 @@ public class CajeroController {
     @Autowired
     ClienteEntityRepository clienteEntityRepository;
     @Autowired
-    CuentaBancoRepository cuentaBancoRepository;
+    CuentabancoEntityRepository cuentabancoEntityRepository;
     @Autowired
     PersonaEntityRepository personaEntityRepository;
     @Autowired
@@ -37,7 +37,7 @@ public class CajeroController {
         ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
         model.addAttribute("cliente", cliente);
 
-        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> todasLasCuentas = cuentabancoEntityRepository.findAll();
         List<CuentabancoEntity> cuentas = new ArrayList<>();
 
         for (CuentabancoEntity c : todasLasCuentas) {
@@ -66,7 +66,7 @@ public class CajeroController {
         ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
         model.addAttribute("cliente", cliente);
 
-        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> todasLasCuentas = cuentabancoEntityRepository.findAll();
         List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
 
         for (CuentabancoEntity c : todasLasCuentas) {
@@ -85,7 +85,7 @@ public class CajeroController {
         ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
         model.addAttribute("cliente", cliente);
 
-        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> todasLasCuentas = cuentabancoEntityRepository.findAll();
         List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
 
         for (CuentabancoEntity c : todasLasCuentas) {
@@ -103,7 +103,7 @@ public class CajeroController {
         ClienteEntity cliente = clienteEntityRepository.findById(idCliente).orElse(null);
         model.addAttribute("cliente", cliente);
 
-        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> todasLasCuentas = cuentabancoEntityRepository.findAll();
         List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
 
         for (CuentabancoEntity c : todasLasCuentas) {
@@ -170,7 +170,7 @@ public class CajeroController {
     public String transfiereDinero(@RequestParam("id") Integer id, @RequestParam("cuentaBanco") String cuentaBanco,
                                    @RequestParam("importe") Integer importe, @RequestParam("cuentaDestino") String cuentaDestino) {
 
-        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> todasLasCuentas = cuentabancoEntityRepository.findAll();
         List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
         List<CuentabancoEntity> cuentasBeneficiario = new ArrayList<>();
 
@@ -186,25 +186,26 @@ public class CajeroController {
         for (CuentabancoEntity c : cuentasCliente) {
             if (c.getIbanCuenta() == cuentaBanco) {
                 c.setSaldo(c.getSaldo() - importe);
-                cuentaBancoRepository.saveAndFlush(c);
+                cuentabancoEntityRepository.saveAndFlush(c);
             }
         }
 
         for (CuentabancoEntity c : cuentasBeneficiario) {
             if (c.getIbanCuenta() == cuentaDestino) {
                 c.setSaldo(c.getSaldo() + importe);
-                cuentaBancoRepository.saveAndFlush(c);
+                cuentabancoEntityRepository.saveAndFlush(c);
             }
         }
 
         return "redirect:/cajero?id=" + id;
     }
 
+
     @PostMapping("/retirarDinero")
     public String retiraDinero(@RequestParam("id") Integer id, @RequestParam("cuentaBanco") String cuentaBanco,
                                @RequestParam("importe") Integer importe) {
-
-        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        /*
+        List<CuentabancoEntity> todasLasCuentas = this.cuentabancoEntityRepository.findAll();
         List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
 
         for (CuentabancoEntity c : todasLasCuentas) {
@@ -216,9 +217,16 @@ public class CajeroController {
         for (CuentabancoEntity c : cuentasCliente) {
             if (c.getIbanCuenta() == cuentaBanco) {
                 c.setSaldo(c.getSaldo() - importe);
-                cuentaBancoRepository.save(c);
+                this.cuentabancoEntityRepository.actualizaSaldo();
             }
+
         }
+        */
+        CuentabancoEntity cuentaCliente = cuentabancoEntityRepository.encuentraCuentaPorIBAN(cuentaBanco);
+
+        int salarioActualizado = cuentaCliente.getSaldo() - importe;
+
+        cuentabancoEntityRepository.actualizaSaldo(salarioActualizado, cuentaBanco, id);
 
 
         return "redirect:/cajero?id=" + id;
@@ -228,7 +236,7 @@ public class CajeroController {
     public String cambioDivisa(@RequestParam("id") Integer id, @RequestParam("cuentaBanco") String cuentaBanco,
                                @RequestParam("importe") Integer importe, @RequestParam("divisa") String divisa, Model model) {
 
-        List<CuentabancoEntity> todasLasCuentas = cuentaBancoRepository.findAll();
+        List<CuentabancoEntity> todasLasCuentas = cuentabancoEntityRepository.findAll();
         List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
 
         for (CuentabancoEntity c : todasLasCuentas) {
@@ -245,12 +253,12 @@ public class CajeroController {
                     importeCambiado = (int) (importeCambiado * 0.88);
                     saldo = (int) (saldo - importeCambiado);
                     c.setSaldo(saldo);
-                    cuentaBancoRepository.saveAndFlush(c);
+                    cuentabancoEntityRepository.saveAndFlush(c);
                 } else if (divisa == "dollar") {
                     importeCambiado = (int) (importeCambiado * 1.12);
                     saldo = (int) (saldo - importeCambiado);
                     c.setSaldo(saldo);
-                    cuentaBancoRepository.saveAndFlush(c);
+                    cuentabancoEntityRepository.saveAndFlush(c);
                 }
             }
         }

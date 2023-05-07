@@ -44,7 +44,7 @@
 
 <script>
     function mostrarAlerta() {
-        alert("¡Gracias por hacer la transferencia");
+        alert("¡Gracias por hacer la transferencia!");
     }
 </script>
 

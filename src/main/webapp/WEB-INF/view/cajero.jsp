@@ -56,8 +56,6 @@
         <br>
         <td><a href="/cajero/operaciones?id=<%=cliente.getId()%>">Operaciones Bancarias</a></td>
         <br>
-        <td><a href="/cajero/registroOperaciones?id=<%=cliente.getId()%>">Registro de Operaciones Bancarias</a></td>
-        <br>
     </tr>
 </table>
 

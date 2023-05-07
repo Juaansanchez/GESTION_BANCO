@@ -31,7 +31,7 @@
     </tr>
     <tr>
         <th>Ver operaciones</th>
-        <td><a href="/cajero/operacionesCliente?id=<%=cliente.getId()%>">Click aquí</a></td>
+        <td><a href="/cajero/registroOperaciones?id=<%=cliente.getId()%>">Click aquí</a></td>
     </tr>
 </table>
 

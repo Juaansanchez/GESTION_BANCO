@@ -40,7 +40,7 @@
 </form>
 <script>
     function mostrarAlerta() {
-        alert("¡Gracias por hacer la retirada");
+        alert("¡Gracias por hacer la retirada!");
     }
 </script>
 </body>
