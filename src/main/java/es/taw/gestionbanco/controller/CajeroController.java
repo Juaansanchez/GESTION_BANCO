@@ -184,7 +184,7 @@ public class CajeroController {
             c.setSaldo(c.getSaldo() - importe);
             this.cuentabancoEntityRepository.save(c);
         }
-        
+
         System.out.println("----------------------------------");
         cuentaBeneficiario.setSaldo(cuentaBeneficiario.getSaldo() + importe);
         System.out.println(cuentaBeneficiario.getSaldo());
@@ -222,7 +222,7 @@ public class CajeroController {
     public String cambioDivisa(@RequestParam("id") Integer id, @RequestParam("cuentaBanco") String cuentaBanco,
                                @RequestParam("importe") Integer importe, @RequestParam("divisa") String divisa, Model model) {
 
-        List<CuentabancoEntity> todasLasCuentas = cuentabancoEntityRepository.findAll();
+        List<CuentabancoEntity> todasLasCuentas = this.cuentabancoEntityRepository.findAll();
         List<CuentabancoEntity> cuentasCliente = new ArrayList<>();
 
         for (CuentabancoEntity c : todasLasCuentas) {
@@ -231,25 +231,18 @@ public class CajeroController {
             }
         }
 
-        for (CuentabancoEntity c : cuentasCliente) {
-            if (c.getIbanCuenta() == cuentaBanco) {
-                int saldo = c.getSaldo();
-                int importeCambiado = importe;
-                if (divisa == "libra") {
-                    importeCambiado = (int) (importeCambiado * 0.88);
-                    saldo = (int) (saldo - importeCambiado);
-                    c.setSaldo(saldo);
-                    cuentabancoEntityRepository.saveAndFlush(c);
-                } else if (divisa == "dollar") {
-                    importeCambiado = (int) (importeCambiado * 1.12);
-                    saldo = (int) (saldo - importeCambiado);
-                    c.setSaldo(saldo);
-                    cuentabancoEntityRepository.saveAndFlush(c);
-                }
+        if (divisa == "libra") {
+            for (CuentabancoEntity c : cuentasCliente) {
+                c.setSaldo(c.getSaldo() - importe * 1);
+                this.cuentabancoEntityRepository.save(c);
+            }
+        } else {
+            for (CuentabancoEntity c : cuentasCliente) {
+                c.setSaldo(c.getSaldo() - importe * 2);
+                this.cuentabancoEntityRepository.save(c);
             }
         }
-
-
+        
         return "redirect:/cajero?id=" + id;
     }
 }
